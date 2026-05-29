@@ -2,7 +2,6 @@
 <html lang="nl" data-theme="light">
 <head>
 <meta charset="UTF-8"/>
-<meta http-equiv="X-UA-Compatible" content="IE=edge"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title>Procesbeheer — Cogas</title>
 <style>
@@ -41,7 +40,7 @@ h1{font-size:20px;font-weight:900;margin:0}
 to{opacity:1;transform:none}}
 
 /* ── KPIs ── */
-.kpi-strip{display:grid;grid-template-columns:repeat(4,1fr);border-bottom:1px solid var(--line)}
+.kpi-strip{display:flex;flex-direction:row;flex-wrap:nowrap;overflow-x:auto;border-bottom:1px solid var(--line)}
 
 
 
@@ -316,7 +315,7 @@ td.c{text-align:center;vertical-align:middle}
 
 @media(max-width:900px){}
 
-.kpi-strip-cell{padding:10px 14px;border-right:1px solid var(--line);border-bottom:1px solid var(--line);display:flex;align-items:center;gap:10px;background:var(--panel);transition:.12s}
+.kpi-strip-cell{padding:10px 14px;border-right:1px solid var(--line);border-bottom:1px solid var(--line);display:flex;align-items:center;gap:10px;background:var(--panel);transition:.12s;flex:1;min-width:160px}
 .kpi-strip-cell:nth-child(4n){border-right:none}
 .kpi-strip-cell:nth-last-child(-n+4){border-bottom:none}
 .kpi-strip-cell:hover{background:var(--gs)}
@@ -329,7 +328,7 @@ td.c{text-align:center;vertical-align:middle}
 .kpi-strip-cell.good .ksc-val{color:var(--g)}
 .kpi-strip-cell.warn .ksc-val{color:var(--o)}
 .kpi-strip-cell.bad .ksc-val{color:#dc2626}
-@media(max-width:900px){.kpi-strip{grid-template-columns:repeat(2,1fr)}.kpi-strip-cell:nth-child(2n){border-right:none}.kpi-strip-cell:nth-child(4n){border-right:1px solid var(--line)}}
+@media(max-width:900px){.kpi-strip-cell:nth-child(2n){border-right:none}}
 
 /* ── ADO INLINE DRAWER ── */
 .ado-drawer{display:none;background:var(--panel2);border-top:1px solid var(--line);padding:12px 16px;animation:fadeUp .18s ease both}
@@ -433,8 +432,8 @@ td.c{text-align:center;vertical-align:middle}
 .status-head{padding:12px 18px;border-bottom:1px solid var(--line);background:linear-gradient(180deg,var(--panel),var(--panel2));display:flex;justify-content:space-between;align-items:center}
 .status-head h2{font-size:13px;font-weight:900;color:var(--g);margin:0}
 .status-head .smeta{font-size:11px;color:var(--muted)}
-.status-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:0;padding:0}
-.status-col{padding:12px 16px;border-right:1px solid var(--line);border-bottom:1px solid var(--line)}
+.status-grid{display:flex;flex-direction:row;flex-wrap:nowrap;overflow-x:auto;gap:0;padding:0}
+.status-col{padding:12px 16px;border-right:1px solid var(--line);min-width:160px;flex:1}
 .status-col:last-child{border-right:none}
 .status-col-name{font-size:10px;font-weight:900;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);margin-bottom:8px}
 .status-rows{display:flex;flex-direction:column;gap:4px}
@@ -515,12 +514,12 @@ td.c{text-align:center;vertical-align:middle}
 /* ── MODAL ── */
 #modal{display:none;position:fixed;inset:0;background:rgba(0,0,0,.42);z-index:999;align-items:center;justify-content:center}
 #modal.show{display:flex}
-.mbox{background:var(--panel);border-radius:var(--r);max-width:520px;width:95%;box-shadow:0 20px 60px rgba(0,0,0,.25);overflow:hidden;animation:fadeUp .18s ease both}
+.mbox{background:var(--panel);border-radius:var(--r);max-width:520px;width:95%;max-height:90vh;display:flex;flex-direction:column;box-shadow:0 20px 60px rgba(0,0,0,.25);overflow:hidden;animation:fadeUp .18s ease both}
 .mhd{padding:16px 20px;border-bottom:1px solid var(--line);background:linear-gradient(180deg,var(--panel),var(--panel2));display:flex;justify-content:space-between;align-items:center}
 .mhd h3{font-size:15px;font-weight:900;color:var(--g)}
 .mx{background:var(--line);border:none;border-radius:999px;width:28px;height:28px;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;color:var(--muted)}
 .mx:hover{background:var(--muted);color:#fff}
-.mbd{padding:18px 20px;display:grid;gap:12px}
+.mbd{padding:18px 20px;display:grid;gap:12px;overflow-y:auto;flex:1}
 .mf label{display:block;font-size:10px;font-weight:900;text-transform:uppercase;letter-spacing:.07em;color:var(--muted);margin-bottom:5px}
 .mf input,.mf select,.mf textarea{width:100%;border:1px solid var(--line);background:var(--panel);border-radius:9px;padding:9px 11px;outline:none;font:inherit;resize:vertical}
 .mf input:focus,.mf textarea:focus{border-color:var(--g);box-shadow:0 0 0 3px rgba(61,122,66,.1)}
@@ -663,12 +662,12 @@ tr.ms-proc-tr td{border-bottom:1px solid var(--line)}
   <div class="export-opts">
    <div class="export-opt" onclick="doExport('json')"><div class="export-opt-icon">📦</div><div class="export-opt-body"><strong>Procesbeheer JSON</strong><span>Exporteer alle procesdata als JSON-bestand voor back-up of import.</span></div></div>
    <div class="export-opt" onclick="doExport('pb-csv')"><div class="export-opt-icon">📊</div><div class="export-opt-body"><strong>Procesbeheer CSV</strong><span>Exporteer procesvoortgang als CSV-tabel.</span></div></div>
-   <div class="export-opt" onclick="doExport('combined-csv')"><div class="export-opt-icon">⇗</div><div class="export-opt-body"><strong>Gecombineerde CSV (ADT + Procesbeheer)</strong><span>Koppelt ADT user stories aan de processtatus per categorie.</span></div></div>
+   <div class="export-opt" onclick="doExport('combined-csv')"><div class="export-opt-icon">🔗</div><div class="export-opt-body"><strong>Gecombineerde CSV (ADT + Procesbeheer)</strong><span>Koppelt ADT user stories aan de processtatus per categorie.</span></div></div>
   </div>
   <div class="export-box-f"><button class="btn-cancel" onclick="closeExportModal()">Sluiten</button></div>
  </div>
 </div>
-<div id="modal">
+<div id="modal" onclick="if(event.target===this)closeModal()">
  <div class="mbox">
   <div class="mhd"><h3 id="m-title">Proces</h3><button class="mx" onclick="closeModal()">&#215;</button></div>
   <div class="mbd">
@@ -685,12 +684,13 @@ tr.ms-proc-tr td{border-bottom:1px solid var(--line)}
      <label class="ck-sel"><span>Afgerond</span><select id="m-done" onchange="updateModalProg()"><option value="0">— Leeg</option><option value="1">✓ Ja</option><option value="2">? Onbekend</option><option value="3">N.V.T.</option></select></label>
      <label class="ck-sel"><span>Eigenaar bekend</span><select id="m-owner" onchange="updateModalProg()"><option value="0">— Leeg</option><option value="1">✓ Ja</option><option value="2">? Onbekend</option><option value="3">N.V.T.</option></select></label>
      <label class="ck-sel"><span>Technisch proces</span><select id="m-tech" onchange="updateModalProg()"><option value="0">— Nee</option><option value="1">✓ Ja</option><option value="2">? Onbekend</option><option value="3">N.V.T.</option></select></label>
-     <label class="ck-sel"><span>Train de trainer</span><select id="m-ttt" onchange="updateModalProg()"><option value="0">— Leeg</option><option value="1">✓ Ja</option><option value="2">? Onbekend</option><option value="3">N.V.T.</option></select></label>
+
      <label class="ck-sel" style="grid-column:1/-1"><span>BPMN aanwezig</span><select id="m-docs" onchange="updateModalProg()"><option value="0">— Leeg</option><option value="1">✓ Ja</option><option value="2">? Onbekend</option><option value="3">N.V.T.</option></select></label>
      <label class="ck-sel" style="grid-column:1/-1"><span>Blauwdruk aanwezig</span><select id="m-blue" onchange="updateModalProg()"><option value="0">— Leeg</option><option value="1">✓ Ja</option><option value="2">? Onbekend</option><option value="3">N.V.T.</option></select></label>
      <label class="ck-sel"><span>Testplan gereed</span><select id="m-test" onchange="updateModalProg()"><option value="0">— Leeg</option><option value="1">✓ Ja</option><option value="2">? Onbekend</option><option value="3">N.V.T.</option></select></label>
      <label class="ck-sel"><span>Autorisatierollen vastgesteld</span><select id="m-auth" onchange="updateModalProg()"><option value="0">— Leeg</option><option value="1">✓ Ja</option><option value="2">? Onbekend</option><option value="3">N.V.T.</option></select></label>
      <label class="ck-sel"><span>V1 procesdoc. gereed</span><select id="m-v1doc" onchange="updateModalProg()"><option value="0">— Leeg</option><option value="1">✓ Ja</option><option value="2">? Onbekend</option><option value="3">N.V.T.</option></select></label>
+     <label class="ck-sel"><span>V2 procesdoc. gereed</span><select id="m-v2doc" onchange="onV2DocChange()"><option value="0">— Leeg</option><option value="1">✓ Ja</option><option value="2">? Onbekend</option><option value="3">N.V.T.</option></select></label>
      <label class="ck-sel"><span>Werkinstructie gereed</span><select id="m-winstr" onchange="updateModalProg()"><option value="0">— Leeg</option><option value="1">✓ Ja</option><option value="2">? Onbekend</option><option value="3">N.V.T.</option></select></label>
     </div></div>
    </div>
@@ -711,25 +711,31 @@ tr.ms-proc-tr td{border-bottom:1px solid var(--line)}
   <div class="rp-foot">Wijzigingen worden automatisch opgeslagen</div>
 </div>
 
-<!-- PAT CONFIG BAR -->
-<div class="pat-bar" id="pat-bar">
-  <span class="pat-bar-label">⚿ Azure DevOps</span>
-  <input class="pat-input" id="pat-input" type="password" placeholder="Plak je Personal Access Token…"/>
-  <button class="pat-btn" onclick="savePAT()">Opslaan</button>
-  <button class="pat-btn secondary" onclick="loadADOStatuses()">⟳ Statussen ophalen</button>
-  <span class="pat-status" id="pat-status"></span>
-  <span style="flex:1"></span>
-  <button class="pat-btn secondary" onclick="toggleADOInstructions()" style="font-size:11px">? Hoe koppelen?</button>
-  <span class="sp-badge local" id="sp-badge">● Lokaal</span>
-  <button class="pat-btn secondary" onclick="spSave()" style="font-size:11px">↑ Opslaan</button>
-  <button class="pat-btn secondary" onclick="spLoad()" style="font-size:11px">↓ Laden</button>
+
+
+<!-- CSV IMPORT MODAL -->
+<div id="csv-modal-overlay" onclick="closeCSVModal()" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:9000"></div>
+<div id="csv-modal" style="display:none;position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);background:var(--panel);border-radius:14px;box-shadow:0 20px 60px rgba(0,0,0,.25);z-index:9001;width:min(720px,95vw);max-height:80vh;overflow:hidden;flex-direction:column">
+  <div style="padding:18px 20px;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;align-items:center">
+    <div>
+      <h3 style="margin:0;font-size:15px;font-weight:900;color:var(--g)">📥 CSV importeren — ADO-koppelingen</h3>
+      <p style="margin:4px 0 0;font-size:12px;color:var(--muted)">Controleer de matches en bevestig om te koppelen</p>
+    </div>
+    <button onclick="closeCSVModal()" style="background:var(--panel2);border:1px solid var(--line);border-radius:8px;padding:6px 12px;cursor:pointer;font-weight:700;color:var(--muted)">✕ Sluiten</button>
+  </div>
+  <div style="padding:14px 20px;border-bottom:1px solid var(--line);display:flex;gap:10px;align-items:center;flex-wrap:wrap">
+    <span id="csv-match-summary" style="font-size:13px;color:var(--muted)"></span>
+    <span style="flex:1"></span>
+    <button onclick="applyCSVImport()" id="csv-apply-btn" style="background:var(--g);color:#fff;border:none;border-radius:8px;padding:8px 18px;font-weight:800;cursor:pointer;font-size:13px">✓ Koppelen toepassen</button>
+  </div>
+  <div id="csv-match-list" style="overflow-y:auto;flex:1;padding:0"></div>
 </div>
 
 <!-- ADO INSTRUCTIONS PANEL -->
 <div id="ado-instructions" style="display:none;background:#1C2B39;color:#fff;padding:20px 24px;border-bottom:2px solid var(--g)">
   <div style="max-width:900px;margin:0 auto">
     <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:16px">
-      <h3 style="margin:0;font-size:15px;font-weight:900;color:#86efac">⇗ Koppelen aan Azure DevOps — stappenplan</h3>
+      <h3 style="margin:0;font-size:15px;font-weight:900;color:#86efac">🔗 Koppelen aan Azure DevOps — stappenplan</h3>
       <button onclick="toggleADOInstructions()" style="background:rgba(255,255,255,.15);border:none;color:#fff;border-radius:6px;padding:4px 12px;cursor:pointer;font-weight:700">✕ Sluiten</button>
     </div>
     <div style="display:grid;grid-template-columns:1fr 1fr;gap:24px">
@@ -743,21 +749,19 @@ tr.ms-proc-tr td{border-bottom:1px solid var(--line)}
           <li>Scope: <strong>Work Items → Read</strong> (alleen lezen is voldoende)</li>
           <li>Klik <strong>Create</strong> → kopieer de token (je ziet hem maar één keer)</li>
         </ol>
-        <div style="margin-top:12px;padding:8px 12px;background:rgba(239,68,68,.15);border:1px solid rgba(239,68,68,.4);border-radius:6px;font-size:11px;color:#fca5a5">
-          ⚠ Heb je eerder een PAT gedeeld in een chat of e-mail? Revoke die dan eerst via dezelfde pagina.
-        </div>
+
       </div>
       <div>
         <div style="font-size:12px;font-weight:900;color:#86efac;text-transform:uppercase;letter-spacing:.06em;margin-bottom:10px">Stap 2 — PAT opslaan in dashboard</div>
         <ol style="margin:0;padding-left:18px;display:grid;gap:6px;font-size:12px;line-height:1.5;color:rgba(255,255,255,.85)">
           <li>Plak de PAT in het veld linksboven (<em>Plak je Personal Access Token…</em>)</li>
           <li>Klik <strong>Opslaan</strong> — de token wordt versleuteld opgeslagen in jouw browser</li>
-          <li>Klik <strong>⟳ Statussen ophalen</strong> om alle ADO-statussen te laden</li>
+          <li>Klik <strong>↻ Statussen ophalen</strong> om alle ADO-statussen te laden</li>
         </ol>
         <div style="font-size:12px;font-weight:900;color:#86efac;text-transform:uppercase;letter-spacing:.06em;margin-top:14px;margin-bottom:10px">Stap 3 — Processen koppelen aan ADO</div>
         <ol style="margin:0;padding-left:18px;display:grid;gap:6px;font-size:12px;line-height:1.5;color:rgba(255,255,255,.85)">
           <li>Open een procesregel in de hiërarchietabel</li>
-          <li>Klik op het ⇗ knopje rechts van de procesnaam</li>
+          <li>Klik op het 🔗 knopje rechts van de procesnaam</li>
           <li>Vul het work item ID in (bijv. <em>220030</em>) of zoek op naam</li>
           <li>Klik <strong>Koppelen</strong> — de ADO-status verschijnt als badge naast de procesnaam</li>
           <li>Klik op een badge om het work item te openen in Azure DevOps</li>
@@ -784,8 +788,8 @@ tr.ms-proc-tr td{border-bottom:1px solid var(--line)}
       <div><h1>Procesbeheer</h1><p class="subtitle">Voortgang &amp; gereedheid per proces — Wave 3</p></div>
     </div>
     <div style="display:flex;gap:8px;align-items:center">
-      <button class="hero-btn" onclick="openExportModal()">↓ Exporteren</button>
-      <button class="hero-btn" onclick="toggleDark()" id="dark-btn">◑</button>
+      <button class="hero-btn" onclick="openExportModal()">⬇ Exporteren</button>
+      <button class="hero-btn" onclick="toggleDark()" id="dark-btn">🌙</button>
     </div>
   </div>
 </div>
@@ -793,8 +797,8 @@ tr.ms-proc-tr td{border-bottom:1px solid var(--line)}
 <div class="pb-outer">
 
 <nav class="pb-tabnav">
-  <button class="pb-tabnav-btn active" data-tab="overzicht" onclick="pbSwitchTab('overzicht')">≡ Procesoverzicht</button>
-  <button class="pb-tabnav-btn" data-tab="gantt" onclick="pbSwitchTab('gantt')">▦ Planning</button>
+  <button class="pb-tabnav-btn active" data-tab="overzicht" onclick="pbSwitchTab('overzicht')">📋 Procesoverzicht</button>
+  <button class="pb-tabnav-btn" data-tab="gantt" onclick="pbSwitchTab('gantt')">📊 Planning</button>
 </nav>
 
 <div id="pb-tab-overzicht" class="pb-tab">
@@ -810,7 +814,7 @@ tr.ms-proc-tr td{border-bottom:1px solid var(--line)}
 
   <div class="toolbar">
    <div class="ctrl"><label>Zoeken</label><input id="pb-q" type="text" placeholder="Procesnaam..." oninput="renderAll()"/></div>
-   <div class="ctrl"><label>Categorie</label><select id="f-cat" onchange="renderAll()"><option value="">Alle</option></select></div>
+   <div class="ctrl"><label>Domein</label><select id="f-cat" onchange="renderAll()"><option value="">Alle</option></select></div>
    <div class="ctrl"><label>Subcategorie</label><select id="f-sub" onchange="renderAll()"><option value="">Alle</option></select></div>
    <div class="ctrl"><label>Status</label>
     <select id="f-status" onchange="renderAll()">
@@ -820,11 +824,6 @@ tr.ms-proc-tr td{border-bottom:1px solid var(--line)}
    <div class="ctrl"><label>Technisch</label>
     <select id="f-tech" onchange="renderAll()">
      <option value="">Alle</option><option value="1">&#10003; Ja</option><option value="2">? Onbekend</option><option value="0">Nee</option><option value="3">N.V.T.</option>
-    </select>
-   </div>
-   <div class="ctrl"><label>Train de trainer</label>
-    <select id="f-ttt" onchange="renderAll()">
-     <option value="">Alle</option><option value="1">&#10003; Gereed</option><option value="2">? Onbekend</option><option value="0">Leeg</option><option value="3">N.V.T.</option>
     </select>
    </div>
    <div class="ctrl"><label>BPMN aanwezig</label>
@@ -852,9 +851,9 @@ tr.ms-proc-tr td{border-bottom:1px solid var(--line)}
 
   <div class="content">
    <div class="panel">
-    <div class="panel-head"><h2>Voortgang per categorie</h2><span class="pmeta" id="cat-meta"></span></div>
+    <div class="panel-head"><h2>Voortgang per domein</h2><span class="pmeta" id="cat-meta"></span></div>
     <div class="cat-grid" id="cat-grid"></div>
-    <div class="add-cat-bar"><button class="add-btn" onclick="addCat()">+ Categorie toevoegen</button></div>
+    <div class="add-cat-bar"><button class="add-btn" onclick="addCat()">+ Domein toevoegen</button></div>
    </div>
    <div class="panel" id="hier-panel">
     <div class="panel-head"><h2>Proceshi&#235;rarchie</h2><span class="pmeta" id="hier-meta"></span></div>
@@ -893,9 +892,9 @@ tr.ms-proc-tr td{border-bottom:1px solid var(--line)}
       <button onclick="cancelGanttPlan()" style="margin-left:auto;background:none;border:1px solid var(--gl);border-radius:5px;padding:2px 8px;font-size:11px;font-weight:700;color:var(--g);cursor:pointer">Annuleren</button>
     </div>
     <div class="gantt-filter">
-      <label>Categorie</label>
+      <label>Domein</label>
       <select id="gantt-cat-filter" onchange="renderGantt()">
-        <option value="">Alle categorieën</option>
+        <option value="">Alle domeinen</option>
       </select>
       <label style="margin-left:8px">Toon</label>
       <select id="gantt-show-filter" onchange="renderGantt()">
@@ -913,32 +912,25 @@ tr.ms-proc-tr td{border-bottom:1px solid var(--line)}
 </div>
 
 <script>
+/* ── ADO / SP CONFIG (declared first to avoid temporal dead zone) ── */
+const ADO_ORG  = 'fcseurope.visualstudio.com';
+const ADO_PROJ = 'Cogas';
+const SP_SITE  = 'https://cogasnv.sharepoint.com/sites/PRJHERCULES';
+const SP_LIST  = 'ProcesbeheerADT';
+
 function val(id){return document.getElementById(id)?.value||''}
 function esc(s){return String(s??'').replace(/[&<>"]/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[m]))}
 function toggleDark(){
   const d=document.documentElement.getAttribute('data-theme')==='dark';
   document.documentElement.setAttribute('data-theme',d?'light':'dark');
-  const b=document.getElementById('dark-btn');if(b)b.textContent=d?'◑':'◐';
+  const b=document.getElementById('dark-btn');if(b)b.textContent=d?'🌙':'☀️';
   localStorage.setItem('proc-theme',d?'light':'dark');
 }
-(function(){const t=localStorage.getItem('proc-theme');if(t==='dark'){document.documentElement.setAttribute('data-theme','dark');document.addEventListener('DOMContentLoaded',()=>{const b=document.getElementById('dark-btn');if(b)b.textContent='◐'});}})();
+(function(){const t=localStorage.getItem('proc-theme');if(t==='dark'){document.documentElement.setAttribute('data-theme','dark');document.addEventListener('DOMContentLoaded',()=>{const b=document.getElementById('dark-btn');if(b)b.textContent='☀️'});}})();
 let S;
 
 
 S = {cats:[
-  {id:'c6',name:'Logistiek',roles:{teamlead:[],keyuser:[],trainer:[],testanalist:[]},open:true,subs:[
-    {id:'s9',name:'Logistiek',open:false,sprintStart:'',sprintEnd:'',prog:0,done:0,owner:0,ownerName:'',tech:false,ttt:false,docs:false,blue:false,test:false,auth:false,v1doc:false,winstr:false,notes:'',
-     procs:[
-      {id:'p_300',name:'Organiseren magazijnen',done:0,adoId:''},
-      {id:'p_301',name:'Ontvangen goederen',done:0,adoId:''},
-      {id:'p_302',name:'Beheren goederen',done:0,adoId:''},
-      {id:'p_303',name:'Uitgifte goederen',done:0,adoId:''},
-      {id:'p_304',name:'Storingen',done:0,adoId:''},
-      {id:'p_305',name:'Rapporten',done:0,adoId:''},
-      {id:'p_306',name:'Scanner',done:0,adoId:''},
-      {id:'p_307',name:'Haspels',done:0,adoId:''}
-    ]}
-  ]},
   {id:'cPROJ',name:'Projecten',roles:{teamlead:[],keyuser:[],trainer:[],testanalist:[]},open:true,subs:[
     {id:'s40',name:'Projecten - Algemeen',open:false,sprintStart:'',sprintEnd:'',prog:0,done:0,owner:0,ownerName:'',tech:false,ttt:false,docs:false,blue:false,test:false,auth:false,v1doc:false,winstr:false,notes:'',
      procs:[
@@ -978,19 +970,19 @@ S = {cats:[
     {id:'s_31',name:'A.1 Maken factuur',open:false,sprintStart:'',sprintEnd:'',prog:0,done:0,owner:0,ownerName:'',tech:false,ttt:false,docs:false,blue:false,test:false,auth:false,v1doc:false,winstr:false,notes:'',
      procs:[
       {id:'p_335',name:'Periodieke verkoopfacturen',done:0,adoId:''},
-      {id:'p_336',name:'Sjabloon vrije tekstfactuur',done:0,adoId:''},
+      {id:'p_336',name:'Sjabloon vrije tekstfactuur',done:1,adoId:''},
       {id:'p_337',name:'Verhuurcontracten klanten',done:0,adoId:''}
     ]},
     {id:'s_32',name:'A.2 Betaling & Incasso',open:false,sprintStart:'',sprintEnd:'',prog:0,done:0,owner:0,ownerName:'',tech:false,ttt:false,docs:false,blue:false,test:false,auth:false,v1doc:false,winstr:false,notes:'',
      procs:[
-      {id:'p_338',name:'Contante betalingen registreren',done:0,adoId:''}
+      {id:'p_338',name:'Contante betalingen registreren',done:1,adoId:''}
     ]},
     {id:'s_33',name:'A.3 Debiteurenbeheer',open:false,sprintStart:'',sprintEnd:'',prog:0,done:0,owner:0,ownerName:'',tech:false,ttt:false,docs:false,blue:false,test:false,auth:false,v1doc:false,winstr:false,notes:'',
      procs:[
       {id:'p_339',name:'AVG gegevens',done:0,adoId:''},
-      {id:'p_340',name:'Betalingstermijn default per debiteur',done:0,adoId:''},
-      {id:'p_341',name:'Boekingsprofielen debiteuren',done:0,adoId:''},
-      {id:'p_342',name:'Afschrijven van een factuur',done:0,adoId:''}
+      {id:'p_340',name:'Betalingstermijn default per debiteur',done:1,adoId:''},
+      {id:'p_341',name:'Boekingsprofielen debiteuren',done:1,adoId:''},
+      {id:'p_342',name:'Afschrijven van een factuur',done:1,adoId:''}
     ]},
     {id:'s_34',name:'B.2 Afhandelen inkooporders',open:false,sprintStart:'',sprintEnd:'',prog:0,done:0,owner:0,ownerName:'',tech:false,ttt:false,docs:false,blue:false,test:false,auth:false,v1doc:false,winstr:false,notes:'',
      procs:[
@@ -999,23 +991,23 @@ S = {cats:[
     {id:'s_35',name:'B.3 Invoice Capture',open:false,sprintStart:'',sprintEnd:'',prog:0,done:0,owner:0,ownerName:'',tech:false,ttt:false,docs:false,blue:false,test:false,auth:false,v1doc:false,winstr:false,notes:'',
      procs:[
       {id:'p_344',name:'Aanleren van documentherkenning',done:0,adoId:''},
-      {id:'p_345',name:'Aanlevering inkoopfacturen in zowel XML als PDF',done:0,adoId:''},
+      {id:'p_345',name:'Aanlevering inkoopfacturen in zowel XML als PDF',done:1,adoId:''},
       {id:'p_346',name:'Bijlagen bij factuur op andere plek toevoegen',done:0,adoId:''},
       {id:'p_347',name:'Bijlagen bij pdf facturen',done:0,adoId:''},
       {id:'p_348',name:'BTW tarieven op regelniveau',done:0,adoId:''},
       {id:'p_349',name:'Combinatie kosten en inkooporderfactuur',done:0,adoId:''},
       {id:'p_350',name:'Creditnota\'s',done:0,adoId:''},
-      {id:'p_351',name:'Dubbele facturen',done:0,adoId:''},
+      {id:'p_351',name:'Dubbele facturen',done:1,adoId:''},
       {id:'p_352',name:'E-mailadres per entiteit',done:0,adoId:''},
-      {id:'p_353',name:'Foutief ingelezen inkoopfacturen',done:0,adoId:''},
-      {id:'p_354',name:'Handmatig matchen inkoopfacturen naar inkooporderfacturen',done:0,adoId:''},
+      {id:'p_353',name:'Foutief ingelezen inkoopfacturen',done:1,adoId:''},
+      {id:'p_354',name:'Handmatig matchen inkoopfacturen naar inkooporderfacturen',done:1,adoId:''},
       {id:'p_355',name:'Identificatie crediteur',done:0,adoId:''},
-      {id:'p_356',name:'Inkoopfacturen verwijderen',done:0,adoId:''},
-      {id:'p_357',name:'Inkooporder wordt herkend door het systeem',done:0,adoId:''},
+      {id:'p_356',name:'Inkoopfacturen verwijderen',done:1,adoId:''},
+      {id:'p_357',name:'Inkooporder wordt herkend door het systeem',done:1,adoId:''},
       {id:'p_358',name:'Koppeling e-mailbox met invoice capture',done:0,adoId:''},
-      {id:'p_359',name:'Meerdere ordernummers op inkoopfactuur',done:0,adoId:''},
-      {id:'p_360',name:'Meerdere pdf facturen in één mail',done:0,adoId:''},
-      {id:'p_361',name:'Overzicht alle inkoopfacturen in alle entiteiten',done:0,adoId:''},
+      {id:'p_359',name:'Meerdere ordernummers op inkoopfactuur',done:1,adoId:''},
+      {id:'p_360',name:'Meerdere pdf facturen in één mail',done:1,adoId:''},
+      {id:'p_361',name:'Overzicht alle inkoopfacturen in alle entiteiten',done:1,adoId:''},
       {id:'p_362',name:'Uitval bij ontbrekende gegevens',done:0,adoId:''}
     ]},
     {id:'s_36',name:'B.3 Invoice Capture + B.4 Boeken inkoopfactuur',open:false,sprintStart:'',sprintEnd:'',prog:0,done:0,owner:0,ownerName:'',tech:false,ttt:false,docs:false,blue:false,test:false,auth:false,v1doc:false,winstr:false,notes:'',
@@ -1031,7 +1023,7 @@ S = {cats:[
       {id:'p_368',name:'Overzicht nog te ontvangen facturen',done:0,adoId:''},
       {id:'p_369',name:'Overzicht openstaande inkoopfacturen',done:0,adoId:''},
       {id:'p_370',name:'Projectkostenfacturen',done:0,adoId:''},
-      {id:'p_371',name:'Redencode crediteuren',done:0,adoId:''},
+      {id:'p_371',name:'Redencode crediteuren',done:1,adoId:''},
       {id:'p_372',name:'Toleranties inkoopfacturen',done:0,adoId:''},
       {id:'p_373',name:'Updaten van crediteurstamgegevens bij ontbrekende gegevens',done:0,adoId:''},
       {id:'p_374',name:'Workflow delegatie',done:0,adoId:''}
@@ -1040,8 +1032,8 @@ S = {cats:[
      procs:[
       {id:'p_375',name:'2-way match',done:0,adoId:''},
       {id:'p_376',name:'3-way match',done:0,adoId:''},
-      {id:'p_377',name:'Betaaltermijnen',done:0,adoId:''},
-      {id:'p_378',name:'Boekingsprofiel leveranciers',done:0,adoId:''},
+      {id:'p_377',name:'Betaaltermijnen',done:1,adoId:''},
+      {id:'p_378',name:'Boekingsprofiel leveranciers',done:1,adoId:''},
       {id:'p_379',name:'Crediteuren stamgegevens',done:0,adoId:''}
     ]},
     {id:'s_39',name:'C.1 Betalingen',open:false,sprintStart:'',sprintEnd:'',prog:0,done:0,owner:0,ownerName:'',tech:false,ttt:false,docs:false,blue:false,test:false,auth:false,v1doc:false,winstr:false,notes:'',
@@ -1049,8 +1041,8 @@ S = {cats:[
       {id:'p_380',name:'Betaalmethoden',done:0,adoId:''},
       {id:'p_381',name:'Betaalvoorstel',done:0,adoId:''},
       {id:'p_382',name:'Betaling g-rekening',done:0,adoId:''},
-      {id:'p_383',name:'Leveranciersbetalingen',done:0,adoId:''},
-      {id:'p_384',name:'Payment schedules leveranciers',done:0,adoId:''}
+      {id:'p_383',name:'Leveranciersbetalingen',done:1,adoId:''},
+      {id:'p_384',name:'Payment schedules leveranciers',done:1,adoId:''}
     ]},
     {id:'s_40',name:'C.3 Eenmalige crediteuren',open:false,sprintStart:'',sprintEnd:'',prog:0,done:0,owner:0,ownerName:'',tech:false,ttt:false,docs:false,blue:false,test:false,auth:false,v1doc:false,winstr:false,notes:'',
      procs:[
@@ -1059,77 +1051,77 @@ S = {cats:[
     ]},
     {id:'s_41',name:'C.4 Crediteurenbeheer',open:false,sprintStart:'',sprintEnd:'',prog:0,done:0,owner:0,ownerName:'',tech:false,ttt:false,docs:false,blue:false,test:false,auth:false,v1doc:false,winstr:false,notes:'',
      procs:[
-      {id:'p_387',name:'Koppeling Factuur en betaling',done:0,adoId:''}
+      {id:'p_387',name:'Koppeling Factuur en betaling',done:1,adoId:''}
     ]},
     {id:'s_42',name:'C.6 Verwerken WKR/BUA',open:false,sprintStart:'',sprintEnd:'',prog:0,done:0,owner:0,ownerName:'',tech:false,ttt:false,docs:false,blue:false,test:false,auth:false,v1doc:false,winstr:false,notes:'',
      procs:[
-      {id:'p_388',name:'Redencodes grootboek (WKR)',done:0,adoId:''},
-      {id:'p_389',name:'Financiële tags (WKR/BUA)',done:0,adoId:''},
-      {id:'p_390',name:'WKR registratie (WKR)',done:0,adoId:''}
+      {id:'p_388',name:'Redencodes grootboek (WKR)',done:1,adoId:''},
+      {id:'p_389',name:'Financiële tags (WKR/BUA)',done:1,adoId:''},
+      {id:'p_390',name:'WKR registratie (WKR)',done:1,adoId:''}
     ]},
     {id:'s_43',name:'D.1 Vaste Activa',open:false,sprintStart:'',sprintEnd:'',prog:0,done:0,owner:0,ownerName:'',tech:false,ttt:false,docs:false,blue:false,test:false,auth:false,v1doc:false,winstr:false,notes:'',
      procs:[
       {id:'p_391',name:'Aanleveren migratiedocument "Setup boekengroepen vaste activa"',done:0,adoId:''},
-      {id:'p_392',name:'Afronden van Afschrijvingen',done:0,adoId:''},
-      {id:'p_393',name:'Afschrijving afgerond naar maanden',done:0,adoId:''},
-      {id:'p_394',name:'Afschrijvingsboeken',done:0,adoId:''},
-      {id:'p_395',name:'Afschrijvingsmethoden',done:0,adoId:''},
-      {id:'p_396',name:'Afschrijvingsperioden',done:0,adoId:''},
-      {id:'p_397',name:'Automatische Boekstuknummers',done:0,adoId:''},
+      {id:'p_392',name:'Afronden van Afschrijvingen',done:1,adoId:''},
+      {id:'p_393',name:'Afschrijving afgerond naar maanden',done:1,adoId:''},
+      {id:'p_394',name:'Afschrijvingsboeken',done:1,adoId:''},
+      {id:'p_395',name:'Afschrijvingsmethoden',done:1,adoId:''},
+      {id:'p_396',name:'Afschrijvingsperioden',done:1,adoId:''},
+      {id:'p_397',name:'Automatische Boekstuknummers',done:1,adoId:''},
       {id:'p_398',name:'Boeken Kostenfactuur van een vast actief',done:0,adoId:''},
-      {id:'p_399',name:'Boeken Leveranciersfactuur',done:0,adoId:''},
-      {id:'p_400',name:'Boekingsprofielen vaste activa',done:0,adoId:''},
-      {id:'p_401',name:'Boekstuknummering Handmatig Stoppen',done:0,adoId:''},
-      {id:'p_402',name:'Commercieel-fiscale verschillen',done:0,adoId:''},
-      {id:'p_403',name:'Dagboeken voor vaste activa',done:0,adoId:''},
-      {id:'p_404',name:'Desinvestering correctie fiscale boekwaarde',done:0,adoId:''},
-      {id:'p_405',name:'Financiële dimensie op actief',done:0,adoId:''},
-      {id:'p_406',name:'Meerdere inkooporders koppelen aan een actief',done:0,adoId:''},
-      {id:'p_407',name:'Minimale Aanschafwaarde',done:0,adoId:''},
+      {id:'p_399',name:'Boeken Leveranciersfactuur',done:1,adoId:''},
+      {id:'p_400',name:'Boekingsprofielen vaste activa',done:1,adoId:''},
+      {id:'p_401',name:'Boekstuknummering Handmatig Stoppen',done:1,adoId:''},
+      {id:'p_402',name:'Commercieel-fiscale verschillen',done:1,adoId:''},
+      {id:'p_403',name:'Dagboeken voor vaste activa',done:1,adoId:''},
+      {id:'p_404',name:'Desinvestering correctie fiscale boekwaarde',done:1,adoId:''},
+      {id:'p_405',name:'Financiële dimensie op actief',done:1,adoId:''},
+      {id:'p_406',name:'Meerdere inkooporders koppelen aan een actief',done:1,adoId:''},
+      {id:'p_407',name:'Minimale Aanschafwaarde',done:1,adoId:''},
       {id:'p_408',name:'Mogelijkheden tot Aanmaak Vaste Activa',done:0,adoId:''},
-      {id:'p_409',name:'Nummering Vaste Activa',done:0,adoId:''},
-      {id:'p_410',name:'Rubricering vaste activa',done:0,adoId:''},
-      {id:'p_411',name:'Splitsen inkooporder naar meerdere activa',done:0,adoId:''},
-      {id:'p_412',name:'Tussentijdse opboekingen activa',done:0,adoId:''},
-      {id:'p_413',name:'Verdichting vaste activa',done:0,adoId:''},
-      {id:'p_414',name:'Verschil aanschafmaand, eerste afschrijvingsmaand',done:0,adoId:''},
-      {id:'p_415',name:'Verschillende afschrijvingsmethoden',done:0,adoId:''}
+      {id:'p_409',name:'Nummering Vaste Activa',done:1,adoId:''},
+      {id:'p_410',name:'Rubricering vaste activa',done:1,adoId:''},
+      {id:'p_411',name:'Splitsen inkooporder naar meerdere activa',done:1,adoId:''},
+      {id:'p_412',name:'Tussentijdse opboekingen activa',done:2,adoId:''},
+      {id:'p_413',name:'Verdichting vaste activa',done:1,adoId:''},
+      {id:'p_414',name:'Verschil aanschafmaand, eerste afschrijvingsmaand',done:1,adoId:''},
+      {id:'p_415',name:'Verschillende afschrijvingsmethoden',done:1,adoId:''}
     ]},
     {id:'s_44',name:'D.2 Btw-aangifte',open:false,sprintStart:'',sprintEnd:'',prog:0,done:0,owner:0,ownerName:'',tech:false,ttt:false,docs:false,blue:false,test:false,auth:false,v1doc:false,winstr:false,notes:'',
      procs:[
-      {id:'p_416',name:'Besluit uitzondering aftrek omzetbelasting registratie',done:0,adoId:''},
-      {id:'p_417',name:'BTW vereffeningsperioden',done:0,adoId:''},
+      {id:'p_416',name:'Besluit uitzondering aftrek omzetbelasting registratie',done:1,adoId:''},
+      {id:'p_417',name:'BTW vereffeningsperioden',done:1,adoId:''},
       {id:'p_418',name:'BTW verlegd inrichting voor inkooporders',done:0,adoId:''},
-      {id:'p_419',name:'BTW-codes',done:0,adoId:''},
-      {id:'p_420',name:'BTW-groepen',done:0,adoId:''},
-      {id:'p_421',name:'BTW-verlegd inrichten',done:0,adoId:''},
-      {id:'p_422',name:'Grootboekrekening voor handmatige btw correcties',done:0,adoId:''},
+      {id:'p_419',name:'BTW-codes',done:1,adoId:''},
+      {id:'p_420',name:'BTW-groepen',done:1,adoId:''},
+      {id:'p_421',name:'BTW-verlegd inrichten',done:1,adoId:''},
+      {id:'p_422',name:'Grootboekrekening voor handmatige btw correcties',done:1,adoId:''},
       {id:'p_423',name:'Rapportindeling BTW-rapport',done:0,adoId:''}
     ]},
     {id:'s_45',name:'D.3 Maandafsluiting',open:false,sprintStart:'',sprintEnd:'',prog:0,done:0,owner:0,ownerName:'',tech:false,ttt:false,docs:false,blue:false,test:false,auth:false,v1doc:false,winstr:false,notes:'',
      procs:[
-      {id:'p_424',name:'Afwijking factuur- en boekingsdatum',done:0,adoId:''},
+      {id:'p_424',name:'Afwijking factuur- en boekingsdatum',done:1,adoId:''},
       {id:'p_425',name:'Definitief afsluiten perioden',done:0,adoId:''},
-      {id:'p_426',name:'Inrichten gedeeld rekeningsschema',done:0,adoId:''},
-      {id:'p_427',name:'Perioden open houden voor gebruikersgroep',done:0,adoId:''},
+      {id:'p_426',name:'Inrichten gedeeld rekeningsschema',done:1,adoId:''},
+      {id:'p_427',name:'Perioden open houden voor gebruikersgroep',done:1,adoId:''},
       {id:'p_428',name:'Scheiding entiteiten',done:0,adoId:''},
-      {id:'p_429',name:'Transitorische posten',done:0,adoId:''},
-      {id:'p_430',name:'Tussenrekeningen afletteren',done:0,adoId:''}
+      {id:'p_429',name:'Transitorische posten',done:1,adoId:''},
+      {id:'p_430',name:'Tussenrekeningen afletteren',done:1,adoId:''}
     ]},
     {id:'s_46',name:'D.4 Budgetten',open:false,sprintStart:'',sprintEnd:'',prog:0,done:0,owner:0,ownerName:'',tech:false,ttt:false,docs:false,blue:false,test:false,auth:false,v1doc:false,winstr:false,notes:'',
      procs:[
-      {id:'p_431',name:'Budgetmonitoring',done:0,adoId:''},
-      {id:'p_432',name:'Budgetrevisies',done:0,adoId:''},
+      {id:'p_431',name:'Budgetmonitoring',done:1,adoId:''},
+      {id:'p_432',name:'Budgetrevisies',done:1,adoId:''},
       {id:'p_433',name:'Budgetscenario\'s',done:0,adoId:''},
       {id:'p_434',name:'Budgetten importeren via Excel integratie',done:0,adoId:''},
       {id:'p_435',name:'Budgetten vastleggen op grootboekrekeningniveau i.c.m. dimensies',done:0,adoId:''}
     ]},
     {id:'s_47',name:'D.5 Inlezen journaalposten',open:false,sprintStart:'',sprintEnd:'',prog:0,done:0,owner:0,ownerName:'',tech:false,ttt:false,docs:false,blue:false,test:false,auth:false,v1doc:false,winstr:false,notes:'',
      procs:[
-      {id:'p_436',name:'Aanpassen periodieke journaal in dagboek',done:0,adoId:''},
+      {id:'p_436',name:'Aanpassen periodieke journaal in dagboek',done:1,adoId:''},
       {id:'p_437',name:'Inrichten periodieke journaalposten',done:0,adoId:''},
       {id:'p_438',name:'Loonjournaalpost importeren via ledger journal',done:0,adoId:''},
-      {id:'p_439',name:'Vastleggen sjabloon voor periodieke journalen',done:0,adoId:''}
+      {id:'p_439',name:'Vastleggen sjabloon voor periodieke journalen',done:1,adoId:''}
     ]},
     {id:'s_48',name:'D.7 Boeken bank',open:false,sprintStart:'',sprintEnd:'',prog:0,done:0,owner:0,ownerName:'',tech:false,ttt:false,docs:false,blue:false,test:false,auth:false,v1doc:false,winstr:false,notes:'',
      procs:[
@@ -1138,42 +1130,52 @@ S = {cats:[
     ]},
     {id:'s_49',name:'D.9 Overig',open:false,sprintStart:'',sprintEnd:'',prog:0,done:0,owner:0,ownerName:'',tech:false,ttt:false,docs:false,blue:false,test:false,auth:false,v1doc:false,winstr:false,notes:'',
      procs:[
-      {id:'p_442',name:'Aanmaken adressen juridische entiteiten',done:0,adoId:''},
-      {id:'p_443',name:'Aanmaken Financiële Dimensiewaarde',done:0,adoId:''},
-      {id:'p_444',name:'Aanmaken nieuwe Financiële Dimensie',done:0,adoId:''},
-      {id:'p_445',name:'Aanmaken nieuwe GB-rekening',done:0,adoId:''},
-      {id:'p_446',name:'Bankrekeningen aanmaken Juridische Entiteiten',done:0,adoId:''},
+      {id:'p_442',name:'Aanmaken adressen juridische entiteiten',done:1,adoId:''},
+      {id:'p_443',name:'Aanmaken Financiële Dimensiewaarde',done:1,adoId:''},
+      {id:'p_444',name:'Aanmaken nieuwe Financiële Dimensie',done:1,adoId:''},
+      {id:'p_445',name:'Aanmaken nieuwe GB-rekening',done:1,adoId:''},
+      {id:'p_446',name:'Bankrekeningen aanmaken Juridische Entiteiten',done:1,adoId:''},
       {id:'p_447',name:'Boekingsprofielen magazijnontvangst',done:0,adoId:''},
-      {id:'p_448',name:'BTW-nummer en KvK-nummer per administratie',done:0,adoId:''},
+      {id:'p_448',name:'BTW-nummer en KvK-nummer per administratie',done:1,adoId:''},
       {id:'p_449',name:'Dagboek voor bankrekeningen',done:0,adoId:''},
-      {id:'p_450',name:'Dimensie afdeling koppelen aan medewerkers',done:0,adoId:''},
-      {id:'p_451',name:'Fiscaal kalender',done:0,adoId:''},
-      {id:'p_452',name:'Geavanceerde financiële dimensiestructuur',done:0,adoId:''},
+      {id:'p_450',name:'Dimensie afdeling koppelen aan medewerkers',done:1,adoId:''},
+      {id:'p_451',name:'Fiscaal kalender',done:1,adoId:''},
+      {id:'p_452',name:'Geavanceerde financiële dimensiestructuur',done:1,adoId:''},
       {id:'p_453',name:'Gecumuleerde boekingen',done:0,adoId:''},
-      {id:'p_454',name:'Handmatige boekingen',done:0,adoId:''},
-      {id:'p_455',name:'Inlezen gedeeld rekeningsschema',done:0,adoId:''},
+      {id:'p_454',name:'Handmatige boekingen',done:1,adoId:''},
+      {id:'p_455',name:'Inlezen gedeeld rekeningsschema',done:1,adoId:''},
       {id:'p_456',name:'Intercompany inrichting vereist',done:0,adoId:''},
-      {id:'p_457',name:'Juridische entiteitsstructuur',done:0,adoId:''},
+      {id:'p_457',name:'Juridische entiteitsstructuur',done:1,adoId:''},
       {id:'p_458',name:'Koppeling intercompany debiteuren/crediteuren',done:0,adoId:''},
-      {id:'p_459',name:'Muteren bestaande configuratie GB-rekeningen',done:0,adoId:''},
-      {id:'p_460',name:'Muteren Financiële Dimensie',done:0,adoId:''},
-      {id:'p_461',name:'Muteren Financiële Dimensiewaarde',done:0,adoId:''},
+      {id:'p_459',name:'Muteren bestaande configuratie GB-rekeningen',done:1,adoId:''},
+      {id:'p_460',name:'Muteren Financiële Dimensie',done:1,adoId:''},
+      {id:'p_461',name:'Muteren Financiële Dimensiewaarde',done:1,adoId:''},
       {id:'p_462',name:'Projectboekingen tussen entiteiten',done:0,adoId:''},
-      {id:'p_463',name:'Projectnummers als dimensie',done:0,adoId:''},
-      {id:'p_464',name:'Rechtstreekse journalisering',done:0,adoId:''},
+      {id:'p_463',name:'Projectnummers als dimensie',done:1,adoId:''},
+      {id:'p_464',name:'Rechtstreekse journalisering',done:1,adoId:''},
       {id:'p_465',name:'RGS rekeningschema',done:0,adoId:''},
-      {id:'p_466',name:'Standaard dagboeken in D365',done:0,adoId:''},
+      {id:'p_466',name:'Standaard dagboeken in D365',done:1,adoId:''},
       {id:'p_467',name:'Verdichting grootboekrekeningen',done:0,adoId:''},
-      {id:'p_468',name:'Voorkeursbankrekening per juridische entiteit',done:0,adoId:''}
+      {id:'p_468',name:'Voorkeursbankrekening per juridische entiteit',done:1,adoId:''}
     ]},
     {id:'s_50',name:'E.1 Aanmaken debiteuren',open:false,sprintStart:'',sprintEnd:'',prog:0,done:0,owner:0,ownerName:'',tech:false,ttt:false,docs:false,blue:false,test:false,auth:false,v1doc:false,winstr:false,notes:'',
      procs:[
       {id:'p_469',name:'Aanmaken nieuwe klant',done:0,adoId:''},
-      {id:'p_470',name:'Debiteuren koppelen aan klantgroepen',done:0,adoId:''},
-      {id:'p_471',name:'Debiteuren over de bedrijven heen',done:0,adoId:''},
-      {id:'p_472',name:'Debiteurengroepen',done:0,adoId:''},
-      {id:'p_473',name:'Herkenning reeds bestaande debiteur',done:0,adoId:''}
+      {id:'p_470',name:'Debiteuren koppelen aan klantgroepen',done:1,adoId:''},
+      {id:'p_471',name:'Debiteuren over de bedrijven heen',done:1,adoId:''},
+      {id:'p_472',name:'Debiteurengroepen',done:1,adoId:''},
+      {id:'p_473',name:'Herkenning reeds bestaande debiteur',done:1,adoId:''}
     ]}
+  ]},
+  {id:'c6',name:'Logistiek',roles:{teamlead:[],keyuser:[],trainer:[],testanalist:[]},open:true,subs:[
+    {id:'s_log1',name:'Organiseren magazijnen',open:false,sprintStart:'',sprintEnd:'',prog:0,done:0,owner:0,ownerName:'',tech:false,docs:false,blue:false,test:false,auth:false,v1doc:false,v2doc:false,winstr:false,notes:'',procs:[]},
+    {id:'s_log2',name:'Ontvangen goederen',open:false,sprintStart:'',sprintEnd:'',prog:0,done:0,owner:0,ownerName:'',tech:false,docs:false,blue:false,test:false,auth:false,v1doc:false,v2doc:false,winstr:false,notes:'',procs:[]},
+    {id:'s_log3',name:'Beheren goederen',open:false,sprintStart:'',sprintEnd:'',prog:0,done:0,owner:0,ownerName:'',tech:false,docs:false,blue:false,test:false,auth:false,v1doc:false,v2doc:false,winstr:false,notes:'',procs:[]},
+    {id:'s_log4',name:'Uitgifte goederen',open:false,sprintStart:'',sprintEnd:'',prog:0,done:0,owner:0,ownerName:'',tech:false,docs:false,blue:false,test:false,auth:false,v1doc:false,v2doc:false,winstr:false,notes:'',procs:[]},
+    {id:'s_log5',name:'Storingen',open:false,sprintStart:'',sprintEnd:'',prog:0,done:0,owner:0,ownerName:'',tech:false,docs:false,blue:false,test:false,auth:false,v1doc:false,v2doc:false,winstr:false,notes:'',procs:[]},
+    {id:'s_log6',name:'Rapporten',open:false,sprintStart:'',sprintEnd:'',prog:0,done:0,owner:0,ownerName:'',tech:false,docs:false,blue:false,test:false,auth:false,v1doc:false,v2doc:false,winstr:false,notes:'',procs:[]},
+    {id:'s_log7',name:'Scanner',open:false,sprintStart:'',sprintEnd:'',prog:0,done:0,owner:0,ownerName:'',tech:false,docs:false,blue:false,test:false,auth:false,v1doc:false,v2doc:false,winstr:false,notes:'',procs:[]},
+    {id:'s_log8',name:'Haspels',open:false,sprintStart:'',sprintEnd:'',prog:0,done:0,owner:0,ownerName:'',tech:false,docs:false,blue:false,test:false,auth:false,v1doc:false,v2doc:false,winstr:false,notes:'',procs:[]}
   ]},
   {id:'c5',name:'Inkoop',roles:{teamlead:[],keyuser:[],trainer:[],testanalist:[]},open:true,subs:[
     {id:'s8',name:'Inkoop',open:false,sprintStart:'',sprintEnd:'',prog:0,done:0,owner:0,ownerName:'',tech:false,ttt:false,docs:false,blue:false,test:false,auth:false,v1doc:false,winstr:false,notes:'',
@@ -1266,7 +1268,7 @@ function allSubs(){return S.cats.flatMap(c=>c.subs)}
 function allProcs(){return S.cats.flatMap(c=>c.subs.flatMap(s=>s.procs))}
 // Calculate progress from the 7 check fields (excluding done), NVT counts as excluded from denominator
 function calcProg(s){
-  const fields=['owner','ttt','docs','blue','test','auth','v1doc','winstr'];
+  const fields=['owner','v2doc','docs','blue','test','auth','v1doc','winstr'];
   const applicable=fields.filter(f=>chkState(s[f])!==3);
   if(!applicable.length)return 100;
   const checked=applicable.filter(f=>chkState(s[f])===1).length;
@@ -1282,7 +1284,7 @@ function pcls(p){return p>=100?'v100':p>=80?'v80':p>=60?'v60':p>=40?'v40':p>=20?
 function getF(){
   const v=id=>document.getElementById(id)?.value||'';
   return{q:v('pb-q').toLowerCase().trim(),cat:v('f-cat'),sub:v('f-sub'),status:v('f-status'),
-    tech:v('f-tech'),ttt:v('f-ttt'),docs:v('f-docs'),
+    tech:v('f-tech'),docs:v('f-docs'),
     blue:v('f-blue'),test:v('f-test'),auth:v('f-auth')};
 }
 function matchS(s,f){
@@ -1291,7 +1293,6 @@ function matchS(s,f){
   if(f.status==='open'&&chkState(s.done)===1)return false;
   const cf=(field,fval)=>!fval||chkState(s[field])===+fval;
   if(!cf('tech',f.tech))return false;
-  if(!cf('ttt',f.ttt))return false;
   if(!cf('docs',f.docs))return false;
   if(!cf('blue',f.blue))return false;
   if(!cf('test',f.test))return false;
@@ -1300,7 +1301,7 @@ function matchS(s,f){
 }
 function pbFiltered(){
   const f=getF();
-  const noFilter=!f.q&&!f.cat&&!f.sub&&!f.status&&!f.tech&&!f.ttt&&!f.docs&&!f.blue&&!f.test&&!f.auth;
+  const noFilter=!f.q&&!f.cat&&!f.sub&&!f.status&&!f.tech&&!f.docs&&!f.blue&&!f.test&&!f.auth;
   if(noFilter)return S.cats;
   return S.cats
     .filter(c=>!f.cat||c.id===f.cat)
@@ -1309,15 +1310,15 @@ function pbFiltered(){
     }))
     .filter(c=>c.subs.length>0);
 }
-function pbResetFilters(){['pb-q','f-cat','f-sub','f-status','f-tech','f-ttt','f-docs','f-blue','f-test','f-auth'].forEach(id=>{const el=document.getElementById(id);if(el)el.value=''});renderAll()}
+function pbResetFilters(){['pb-q','f-cat','f-sub','f-status','f-tech','f-docs','f-blue','f-test','f-auth'].forEach(id=>{const el=document.getElementById(id);if(el)el.value=''});renderAll()}
 
 /* ── FILL SELECTS ── */
 function fillSelects(){
   const fc=document.getElementById('f-cat'),cv=fc.value;
-  fc.innerHTML='<option value="">Alle categorieën</option>'+S.cats.map(c=>`<option value="${c.id}">${esc(c.name)}</option>`).join('');
+  fc.innerHTML='<option value="">Alle domeinen</option>'+S.cats.map(c=>`<option value="${c.id}">${esc(c.name)}</option>`).join('');
   if([...fc.options].some(o=>o.value===cv))fc.value=cv;
   const fs=document.getElementById('f-sub'),sv=fs.value;
-  fs.innerHTML='<option value="">Alle subcategorieën</option>'+S.cats.flatMap(c=>c.subs).map(s=>`<option value="${s.id}">${esc(s.name)}</option>`).join('');
+  fs.innerHTML='<option value="">Alle deelprocessen</option>'+S.cats.flatMap(c=>c.subs).map(s=>`<option value="${s.id}">${esc(s.name)}</option>`).join('');
   if([...fs.options].some(o=>o.value===sv))fs.value=sv;
 }
 
@@ -1348,7 +1349,7 @@ function renderStatusOverview(){
   const ss=allSubs();
   const cols=[
     {key:'tech',lbl:'Technisch proces',color:'#3b82f6'},
-    {key:'ttt',lbl:'Train de trainer',color:'#3D7A42'},
+    {key:'v2doc',lbl:'V2 procesdoc. gereed',color:'#3D7A42'},
     {key:'docs',lbl:'BPMN aanwezig',color:'#3D7A42'},
     {key:'blue',lbl:'Blauwdruk aanwezig',color:'#7c3aed'},
     {key:'test',lbl:'Testplan gereed',color:'#0891b2'},
@@ -1380,7 +1381,7 @@ function renderStatusOverview(){
 /* ── CAT CARDS — one card per subcategory ── */
 function renderCatCards(){
   const totSubs=allSubs().length,totP=allProcs().length;
-  document.getElementById('cat-meta').textContent=`${S.cats.length} categorieën · ${totSubs} deelprocessen · ${totP} user stories`;
+  document.getElementById('cat-meta').textContent=`${S.cats.length} domeinen · ${totSubs} deelprocessen · ${totP} user stories`;
   document.getElementById('cat-grid').innerHTML=S.cats.map(c=>{
     const subs=c.subs;
     const av=avg(subs);
@@ -1470,7 +1471,7 @@ function rowHide(el,hidden){el.style.display=hidden?'none':'';}
 function renderHier(){
   const cats=pbFiltered();
   const totS=cats.flatMap(c=>c.subs).length,totP=cats.flatMap(c=>c.subs.flatMap(s=>s.procs)).length;
-  document.getElementById('hier-meta').textContent=`${cats.length} categorieën · ${totS} deelprocessen · ${totP} user stories`;
+  document.getElementById('hier-meta').textContent=`${cats.length} domeinen · ${totS} deelprocessen · ${totP} user stories`;
   const body=document.getElementById('hier-body');
   if(!cats.length){body.innerHTML='<tr class="empty-row"><td colspan="11">Geen resultaten voor deze filters.</td></tr>';return}
   let h='';
@@ -1485,14 +1486,18 @@ function renderHier(){
         <span class="cat-prog-pct">${cav}%</span>
         <button class="row-act" onclick="event.stopPropagation();renameCat('${c.id}')">Naam</button>
         <button class="row-act" onclick="event.stopPropagation();addSub('${c.id}')">+ Deelproces</button>
+        ${(c.id==='c6'||c.name==='Logistiek')&&c.subs.some(s=>s.procs?.some(p=>['Organiseren magazijnen','Ontvangen goederen'].includes(p.name)))?`<button class="row-act" style="background:#d97706;color:#fff;border-color:#d97706" onclick="event.stopPropagation();fixLogistiek();renderAll()">⚠ Fix structuur</button>`:''}
         <button class="row-act del" onclick="event.stopPropagation();delCat('${c.id}')">Verwijder</button>
       </div>
     </td></tr>`;
-        h+=`<tr class='r-col-hdr' id='colhdr-${c.id}' style='${open?"":"display:none"}'><td style='padding:5px 16px;font-size:10px;font-weight:900;text-transform:uppercase;letter-spacing:.06em;color:var(--muted)'>Deelproces / Voortgang</td><td></td><td class='c col-hdr-cell' title='Afgerond'>✓</td><td class='c col-hdr-cell' title='Technisch proces'>⚙</td><td class='c col-hdr-cell col-ttt' title='Train de Trainer'>TdT</td><td class='c col-hdr-cell col-bpmn' title='BPMN aanwezig'>BPMN</td><td class='c col-hdr-cell col-blue' title='Blauwdruk aanwezig'>Blauw</td><td class='c col-hdr-cell col-test' title='Testplan gereed'>Test</td><td class='c col-hdr-cell col-auth' title='Autorisatierollen'>Auth</td><td class='c col-hdr-cell col-v1' title='V1 procesdocumentatie'>V1</td><td class='c col-hdr-cell col-wi' title='Werkinstructie'>WI</td><td></td></tr>`;
+        h+=`<tr class='r-col-hdr' id='colhdr-${c.id}' style='${open?"":"display:none"}'><td style='padding:5px 16px;font-size:10px;font-weight:900;text-transform:uppercase;letter-spacing:.06em;color:var(--muted)'>Deelproces / Voortgang</td><td></td><td class='c col-hdr-cell' title='Afgerond'>✓</td><td class='c col-hdr-cell' title='Technisch proces'>⚙</td><td class='c col-hdr-cell col-v2' title='V2 procesdocumentatie'>V2</td><td class='c col-hdr-cell col-bpmn' title='BPMN aanwezig'>BPMN</td><td class='c col-hdr-cell col-blue' title='Blauwdruk aanwezig'>Blauw</td><td class='c col-hdr-cell col-test' title='Testplan gereed'>Test</td><td class='c col-hdr-cell col-auth' title='Autorisatierollen'>Auth</td><td class='c col-hdr-cell col-v1' title='V1 procesdocumentatie'>V1</td><td class='c col-hdr-cell col-wi' title='Werkinstructie'>WI</td><td></td></tr>`;
     subs.forEach(s=>{
-      const sav=calcProg(s),catHide=!open,subsHide=!open||!s.open;
-      const usDone=s.procs.filter(p=>chkState(p.done)===1).length;
-      const allOtherDone=s.ownerName&&s.ownerName.trim()&&[s.tech,s.ttt,s.docs,s.blue,s.test,s.auth,s.v1doc,s.winstr].every(v=>chkState(v)===1);
+      const usTotal=s.procs.length;
+      const usDoneCount=s.procs.filter(p=>chkState(p.done)===1).length;
+      const sav=usTotal?Math.round(usDoneCount/usTotal*100):0;
+      const catHide=!open,subsHide=!open||!s.open;
+      const usDone=usDoneCount;
+      const allOtherDone=s.ownerName&&s.ownerName.trim()&&[s.tech,s.v2doc,s.docs,s.blue,s.test,s.auth,s.v1doc,s.winstr].every(v=>chkState(v)===1);
       // LAYER 2: deelproces row with full checkmarks
       h+=`<tr class="r-sub" id="rs-${s.id}" data-cat="${c.id}" data-sub="${s.id}" style="${catHide?'display:none':''}">
         <td><div class="pname-wrap">
@@ -1516,7 +1521,7 @@ function renderHier(){
         }</div></td>
         ${allOtherDone?chkTd(s.done,s.id,'done','Afgerond'):'<td class="c" style="display:none"><div class="chk"></div></td>'}
         ${techTd(s.tech,s.id)}
-        ${chkTd(s.ttt,s.id,'ttt','Train de trainer gedaan','','tech-sep')}
+        ${chkTd(s.v2doc,s.id,'v2doc','V2 procesdoc. gereed','v2','')}
         ${chkTd(s.docs,s.id,'docs','BPMN aanwezig')}
         ${chkTd(s.blue,s.id,'blue','Blauwdruk aanwezig','blue')}
         ${chkTd(s.test,s.id,'test','Testplan gereed','test')}
@@ -1524,10 +1529,32 @@ function renderHier(){
         ${chkTd(s.v1doc,s.id,'v1doc','V1 procesdocumentatie gereed','v1doc')}
         ${chkTd(s.winstr,s.id,'winstr','Werkinstructie gereed','winstr')}
         <td class="c"><div class="acts">
+          <button class="act ado-sub-link-btn" onclick="toggleADODrawerSub('${s.id}')" title="${s.adoId?'ADO: #'+s.adoId:'Koppel deelproces aan ADO'}">🔗${s.adoId?' <span style=\"font-size:9px;opacity:.7\">#'+s.adoId+'</span>':''}</button>
           <button class="act" onclick="openEdit('${c.id}','${s.id}')">Bewerk</button>
           <button class="act del" onclick="delSub('${s.id}','${c.id}')">&#215;</button>
         </div></td>
-      </tr>`;
+      </tr>
+      <tr class="ado-drawer-row-tr" id="ado-sub-dr-${s.id}" style="display:none" data-cat="${c.id}" data-sub="${s.id}">
+        <td colspan="11">
+          <div class="ado-drawer open" id="ado-sub-drawer-${s.id}">
+            <div class="ado-drawer-inner">
+              ${s.adoId?`<div class="ado-current">
+                <span>🔗 Deelproces gekoppeld:</span>
+                <a href="https://${ADO_ORG}/${ADO_PROJ}/_workitems/edit/${s.adoId}" target="_blank">#${s.adoId}${s.adoTitle?' — '+esc(s.adoTitle):''}</a>
+                <span class="ado-badge ${s.adoState||'loading'}" style="margin:0">${s.adoState||'…'}</span>
+                <button class="ado-d-btn danger" onclick="unlinkADOSub('${s.id}')">× Ontkoppelen</button>
+              </div>`:''}
+              <div class="ado-drawer-row">
+                <span class="ado-drawer-lbl">ADO ID invoeren</span>
+                <div class="ado-search-wrap">
+                  <input class="ado-d-input" id="ado-sub-id-${s.id}" type="number" placeholder="Work item ID (bijv. 220029)" style="max-width:200px"/>
+                  <button class="ado-d-btn" onclick="linkADODirectSub('${s.id}')">Koppelen</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </td>
+      </tr>\``;
       // LAYER 3: user story rows (done toggle only)
       s.procs.forEach(p=>{
         const pDone=chkState(p.done);
@@ -1537,7 +1564,7 @@ function renderHier(){
             <span class="us-bullet">↳</span>
             <span class="us-name">${esc(p.name)}</span>
             ${adoBadgeHtml}
-            <button class="ado-link-btn" onclick="toggleADODrawer('${p.id}')" title="${p.adoId?'ADO koppeling':'Koppelen aan ADO'}">⇗</button>
+            <button class="ado-link-btn" onclick="toggleADODrawer('${p.id}')" title="${p.adoId?'ADO koppeling':'Koppelen aan ADO'}">🔗</button>
           </div></td>
           <td class="c"><div class="chk${pDone===1?' on':pDone===2?' maybe':''}" title="User story afgerond" onclick="cycleChkProc('${p.id}','done')">${pDone===1?'&#10003;':pDone===2?'?':''}</div></td>
           <td colspan="8"></td>
@@ -1547,7 +1574,7 @@ function renderHier(){
             <div class="ado-drawer open" id="ado-drawer-${p.id}">
               <div class="ado-drawer-inner">
                 ${p.adoId?`<div class="ado-current">
-                  <span>⇗ Gekoppeld:</span>
+                  <span>🔗 Gekoppeld:</span>
                   <a href="https://${ADO_ORG}/${ADO_PROJ}/_workitems/edit/${p.adoId}" target="_blank">#${p.adoId}${p.adoTitle?' — '+esc(p.adoTitle):''}</a>
                   <span class="ado-badge ${p.adoState||'loading'}" style="margin:0">${p.adoState||'…'}</span>
                   <button class="ado-d-btn danger" onclick="unlinkADO('${p.id}')">× Ontkoppelen</button>
@@ -1610,6 +1637,21 @@ function saveOwnerInline(sid,val){
   save();renderAll();
 }
 function editOwnerName(pid){}
+function cycleChk(sid,prop){
+  S.cats.forEach(c=>c.subs.forEach(s=>{
+    if(s.id===sid){
+      const cur=chkState(s[prop]);
+      const next=cur===0?1:cur===1?2:cur===2?3:0;
+      s[prop]=next;
+      // V2→V1 auto: als V2 aangevinkt wordt, ook V1 aanvinken
+      if(prop==='v2doc'&&next===1) s.v1doc=1;
+      // ADO task status sync
+      applyADOTaskCheckboxes(s);
+      s.prog=calcProg(s);
+    }
+  }));
+  save();renderAll();
+}
 function cycleChkProc(pid,prop){
   S.cats.forEach(c=>c.subs.forEach(s=>s.procs.forEach(p=>{
     if(p.id===pid){const cur=chkState(p[prop]);p[prop]=cur===1?0:1;}
@@ -1627,7 +1669,7 @@ function cycleChkProc(pid,prop){
 
 /* ── ADD / RENAME / DELETE ── */
 function addCat(){
-  const n=prompt('Naam nieuwe categorie:','');
+  const n=prompt('Naam nieuw domein:','');
   if(!n?.trim())return;
   S.cats.push({id:nid('c'),name:n.trim(),open:true,subs:[]});save();renderAll();
 }
@@ -1635,18 +1677,26 @@ function addSub(cid){
   const c=S.cats.find(x=>x.id===cid);if(!c)return;
   const n=prompt(`Naam nieuw deelproces in "${c.name}":`, '');
   if(!n?.trim())return;
-  c.subs.push({id:nid('s'),name:n.trim(),open:true,prog:0,done:0,owner:0,ownerName:'',tech:false,ttt:false,docs:false,blue:false,test:false,auth:false,v1doc:false,winstr:false,notes:'',procs:[]});
+  c.subs.push({id:nid('s'),name:n.trim(),open:true,prog:0,done:0,owner:0,ownerName:'',tech:false,docs:false,blue:false,test:false,auth:false,v1doc:false,v2doc:false,winstr:false,notes:'',procs:[]});
   save();renderAll();
 }
 function renameCat(id){const c=S.cats.find(x=>x.id===id);if(!c)return;const n=prompt('Naam:',c.name);if(n?.trim()){c.name=n.trim();save();renderAll();}}
 function renameSub(sid,cid){const c=S.cats.find(x=>x.id===cid),s=c?.subs.find(x=>x.id===sid);if(!s)return;const n=prompt('Naam:',s.name);if(n?.trim()){s.name=n.trim();save();renderAll();}}
-function delCat(id){const c=S.cats.find(x=>x.id===id);if(!confirm(`Categorie "${c?.name}" verwijderen?`))return;S.cats=S.cats.filter(x=>x.id!==id);save();renderAll();}
+function delCat(id){const c=S.cats.find(x=>x.id===id);if(!confirm(`Domein "${c?.name}" verwijderen?`))return;S.cats=S.cats.filter(x=>x.id!==id);save();renderAll();}
 function delSub(sid,cid){const c=S.cats.find(x=>x.id===cid),s=c?.subs.find(x=>x.id===sid);if(!confirm(`Subcategorie "${s?.name}" verwijderen?`))return;if(c)c.subs=c.subs.filter(x=>x.id!==sid);save();renderAll();}
 function delProc(pid,cid,sid){const c=S.cats.find(x=>x.id===cid),s=c?.subs.find(x=>x.id===sid),p=s?.procs.find(x=>x.id===pid);if(!confirm(`Proces "${p?.name}" verwijderen?`))return;if(s)s.procs=s.procs.filter(x=>x.id!==pid);save();renderAll();}
 
 /* ── MODAL ── */
+function onV2DocChange(){
+  const v2=+document.getElementById('m-v2doc').value;
+  if(v2===1){
+    const v1=document.getElementById('m-v1doc');
+    if(v1&&+v1.value!==1) v1.value=1;
+  }
+  updateModalProg();
+}
 function updateModalProg(){
-  const fields=['owner','ttt','docs','blue','test','auth','v1doc','winstr']; // 'tech' excluded
+  const fields=['owner','v2doc','docs','blue','test','auth','v1doc','winstr']; // 'tech' excluded
   const vals=fields.map(f=>+document.getElementById('m-'+f).value);
   const applicable=vals.filter(v=>v!==3);
   const checked=applicable.filter(v=>v===1).length;
@@ -1661,7 +1711,7 @@ function openNew(cid,sid){
   const n=prompt('Naam nieuw deelproces:','');
   if(!n?.trim())return;
   const c=S.cats.find(x=>x.id===cid);if(!c)return;
-  c.subs.push({id:nid('s'),name:n.trim(),open:true,prog:0,done:0,owner:0,ownerName:'',tech:false,ttt:false,docs:false,blue:false,test:false,auth:false,v1doc:false,winstr:false,notes:'',procs:[]});
+  c.subs.push({id:nid('s'),name:n.trim(),open:true,prog:0,done:0,owner:0,ownerName:'',tech:false,docs:false,blue:false,test:false,auth:false,v1doc:false,v2doc:false,winstr:false,notes:'',procs:[]});
   save();renderAll();
 }
 function openNewUS(cid,sid){
@@ -1681,12 +1731,12 @@ function openEdit(cid,sid){
   document.getElementById('m-done').value=chkState(s.done);
   document.getElementById('m-owner').value=chkState(s.owner);
   document.getElementById('m-tech').value=chkState(s.tech);
-  document.getElementById('m-ttt').value=chkState(s.ttt);
   document.getElementById('m-docs').value=chkState(s.docs);
   document.getElementById('m-blue').value=chkState(s.blue||0);
   document.getElementById('m-test').value=chkState(s.test||0);
   document.getElementById('m-auth').value=chkState(s.auth||0);
   document.getElementById('m-v1doc').value=chkState(s.v1doc||0);
+  document.getElementById('m-v2doc').value=chkState(s.v2doc||0);
   document.getElementById('m-winstr').value=chkState(s.winstr||0);
   document.getElementById('m-notes').value=s.notes||'';
   updateModalProg();
@@ -1698,12 +1748,14 @@ function saveModal(){
   if(!name){alert('Voer een naam in.');return}
   const data={name,ownerName:document.getElementById('m-ownname').value.trim(),
     done:+document.getElementById('m-done').value,owner:+document.getElementById('m-owner').value,
-    tech:+document.getElementById('m-tech').value,ttt:+document.getElementById('m-ttt').value,
+    tech:+document.getElementById('m-tech').value,
     docs:+document.getElementById('m-docs').value,blue:+document.getElementById('m-blue').value,
     test:+document.getElementById('m-test').value,auth:+document.getElementById('m-auth').value,
-    v1doc:+document.getElementById('m-v1doc').value,winstr:+document.getElementById('m-winstr').value,
+    v1doc:+document.getElementById('m-v1doc').value,v2doc:+document.getElementById('m-v2doc').value,
+    winstr:+document.getElementById('m-winstr').value,
     notes:document.getElementById('m-notes').value.trim()};
-  if([data.owner,data.ttt,data.docs,data.blue,data.test,data.auth,data.v1doc,data.winstr].every(v=>v===1)){data.done=1;}
+  if(data.v2doc===1) data.v1doc=1;
+  if([data.owner,data.v2doc,data.docs,data.blue,data.test,data.auth,data.v1doc,data.winstr].every(v=>v===1)){data.done=1;}
   data.prog=calcProg(data);
   const c=S.cats.find(x=>x.id===M.catId),s=c?.subs.find(x=>x.id===M.subId);if(!s)return;
   if(!M.isNew){Object.assign(s,data);}
@@ -1711,12 +1763,7 @@ function saveModal(){
 }
 
 /* ── PERSIST ── */
-function save(){
-  try{localStorage.setItem('proc-v10',JSON.stringify(S))}catch(e){}
-  // Also sync to SharePoint in background (debounced)
-  clearTimeout(save._spTimer);
-  save._spTimer=setTimeout(()=>{if(adoPAT)spSave();},2000);
-}
+function save(){try{localStorage.setItem('proc-v10',JSON.stringify(S))}catch(e){}}
 function load(){try{const d=localStorage.getItem('proc-v10');if(d){S=JSON.parse(d);return true}}catch(e){}return false}
 
 /* ── RESET PROGRESS ── */
@@ -1724,7 +1771,7 @@ function confirmResetProgress(){
   if(!confirm('Weet je zeker dat je alle voortgang wilt resetten?'))return;
   if(!confirm('Laatste waarschuwing: dit kan NIET ongedaan worden gemaakt. Doorgaan?'))return;
   S.cats.forEach(c=>c.subs.forEach(s=>{
-    s.prog=0;s.done=0;s.owner=0;s.ownerName='';s.tech=0;s.ttt=0;s.docs=0;s.blue=0;s.test=0;s.auth=0;s.v1doc=0;s.winstr=0;s.notes='';
+    s.prog=0;s.done=0;s.owner=0;s.ownerName='';s.tech=0;s.docs=0;s.blue=0;s.test=0;s.auth=0;s.v1doc=0;s.v2doc=0;s.winstr=0;s.notes='';
     s.procs.forEach(p=>{p.done=0;});
   }));
   save();renderAll();
@@ -1747,10 +1794,47 @@ document.addEventListener('DOMContentLoaded',function(){
   var m=document.getElementById('modal');
   if(m)m.addEventListener('click',function(e){if(e.target===e.currentTarget)closeModal();});
 });
+document.addEventListener('keydown',function(e){
+  if(e.key==='Escape'){
+    if(document.getElementById('modal')?.classList.contains('show')) closeModal();
+    closeCSVModal?.();
+    closeRolePanel?.();
+  }
+});
 
 /* ── BOOT ── */
 function renderAll(){fillSelects();renderKPIs();renderStatusOverview();renderCatCards();renderHier();}
 load();
+
+/* ── MIGRATE: Logistiek procs → deelprocessen ── */
+function fixLogistiek(){
+  const NAMES = ['Organiseren magazijnen','Ontvangen goederen','Beheren goederen',
+    'Uitgifte goederen','Storingen','Rapporten','Scanner','Haspels'];
+  const cat = S.cats.find(c => c.id==='c6'||c.name==='Logistiek');
+  if(!cat) return false;
+  // Check if ANY sub still has these as procs (old structure)
+  const allProcsFlat = cat.subs.flatMap(s=>s.procs||[]);
+  const oldProcs = allProcsFlat.filter(p=>NAMES.includes(p.name));
+  // Check if subs already have the right names (already migrated)
+  const subNames = cat.subs.map(s=>s.name);
+  const alreadyMigrated = NAMES.every(n=>subNames.includes(n));
+  if(alreadyMigrated && oldProcs.length===0) return false;
+  // Build new subs — preserve ADO IDs from old procs
+  cat.subs = NAMES.map(name=>{
+    const old = oldProcs.find(p=>p.name===name)||{};
+    return {
+      id:'s_log_'+name.replace(/\s+/g,'_').toLowerCase(),
+      name, open:false, sprintStart:'', sprintEnd:'', prog:0, done:0,
+      owner:0, ownerName:'', tech:false, docs:false, blue:false, test:false,
+      auth:false, v1doc:false, v2doc:false, winstr:false, notes:'',
+      adoId:old.adoId||'', adoState:old.adoState||'', adoTitle:old.adoTitle||'', procs:[]
+    };
+  });
+  save();
+  return true;
+}
+fixLogistiek();
+
 // Recalculate all prog values from check fields on load
 S.cats.forEach(c=>c.subs.forEach(s=>{s.prog=calcProg(s);}));
 renderAll();
@@ -1833,7 +1917,7 @@ function doExport(type){
     const rows=[['Categorie','Subcategorie','Proces','Eigenaar','Voortgang%','Afgerond','Tech.Proces','Train.Trainer','BPMN','Blauwdruk','Testplan','Autorisatie','V1.Procdoc','Werkinstructie']];
     S.cats.forEach(c=>c.subs.forEach(s=>s.procs.forEach(p=>{
       const cs=v=>({0:'',1:'✓',2:'?',3:'N.V.T.'})[chkState(v)]||'';
-      rows.push([c.name,s.name,p.name,p.ownerName||'',p.prog,cs(p.done),cs(p.tech),cs(p.ttt),cs(p.docs),cs(p.blue),cs(p.test),cs(p.auth),cs(p.v1doc),cs(p.winstr)]);
+      rows.push([c.name,s.name,p.name,p.ownerName||'',p.prog,cs(p.done),cs(p.tech),cs(p.docs),cs(p.blue),cs(p.test),cs(p.auth),cs(p.v1doc),cs(p.v2doc||0),cs(p.winstr)]);
     })));
     downloadCsv(rows,`procesbeheer-${new Date().toISOString().slice(0,10)}.csv`);
     closeExportModal(); return;
@@ -1885,11 +1969,6 @@ function downloadCsv(rows,filename){
 /* ══════════════════════════════════════════════════════
    ADO CONFIG & INTEGRATION
 ══════════════════════════════════════════════════════ */
-const ADO_ORG  = 'fcseurope.visualstudio.com';
-const ADO_PROJ = 'Cogas';
-const SP_SITE  = 'https://cogasnv.sharepoint.com/sites/PRJHERCULES';
-const SP_LIST  = 'ProcesbeheerADT';
-
 let adoPAT = '';
 let adoModalProcId = null;
 let adoSearchTimer = null;
@@ -1905,8 +1984,7 @@ function savePAT(){
   adoPAT = v;
   localStorage.setItem('ado-pat', btoa(v));
   document.getElementById('pat-input').value = '';
-  setPatStatus('PAT opgeslagen ✓ — data laden…','ok');
-  spLoad();
+  setPatStatus('PAT opgeslagen ✓','ok');
 }
 function loadPAT(){
   try{
@@ -1936,21 +2014,54 @@ async function adoFetch(url, method='GET', body=null){
   }catch(e){setPatStatus('Netwerkfout: '+e.message,'err');return null;}
 }
 
+/* ── Apply ADO task states to checkboxes ── */
+function applyADOTaskCheckboxes(s){
+  // Called after fetching ADO statuses — updates checkboxes from task states
+  const done = st => st && (st==='Done'||st==='Closed'||st==='Resolved') ? 1 : 0;
+  if(s.adoTaskV2    && s.adoTaskV2State)    { s.v2doc=done(s.adoTaskV2State);   if(s.v2doc===1) s.v1doc=1; }
+  if(s.adoTaskAuth  && s.adoTaskAuthState)  { s.auth =done(s.adoTaskAuthState); }
+  if(s.adoTaskWinstr&& s.adoTaskWinstrState){ s.winstr=done(s.adoTaskWinstrState); }
+  if(s.adoTaskTest  && s.adoTaskTestState)  { s.test =done(s.adoTaskTestState); }
+  s.prog=calcProg(s);
+}
+
 /* ── Load statuses for all linked processes ── */
 async function loadADOStatuses(){
   if(!adoPAT){setPatStatus('Sla eerst een PAT op','err');return;}
   const procs=allProcs().filter(p=>p.adoId);
-  if(!procs.length){setPatStatus('Geen ADO-koppelingen gevonden','err');return;}
+  const subs=S.cats.flatMap(c=>c.subs);
+  // Collect task IDs from subs
+  const taskIdMap={}; // id -> {sub, field}
+  subs.forEach(s=>{
+    if(s.adoTaskV2)    taskIdMap[s.adoTaskV2]    ={sub:s,field:'adoTaskV2State'};
+    if(s.adoTaskAuth)  taskIdMap[s.adoTaskAuth]  ={sub:s,field:'adoTaskAuthState'};
+    if(s.adoTaskWinstr)taskIdMap[s.adoTaskWinstr]={sub:s,field:'adoTaskWinstrState'};
+    if(s.adoTaskTest)  taskIdMap[s.adoTaskTest]  ={sub:s,field:'adoTaskTestState'};
+  });
+  // Also include sub-level adoIds
+  const subAdoIds=S.cats.flatMap(c=>c.subs).filter(s=>s.adoId).map(s=>s.adoId);
+  const allIds=[...procs.map(p=>p.adoId),...Object.keys(taskIdMap),...subAdoIds].filter(Boolean);
+  if(!allIds.length){setPatStatus('Geen ADO-koppelingen gevonden','err');return;}
   setPatStatus('Ophalen…','');
-  const ids=procs.map(p=>p.adoId).join(',');
-  const url=`https://${ADO_ORG}/${ADO_PROJ}/_apis/wit/workitems?ids=${ids}&fields=System.Id,System.Title,System.State,System.AssignedTo&api-version=7.0`;
+  const url=`https://${ADO_ORG}/${ADO_PROJ}/_apis/wit/workitems?ids=${allIds.join(',')}&fields=System.Id,System.Title,System.State,System.AssignedTo&api-version=7.0`;
   const data=await adoFetch(url);
   if(!data||!data.value)return;
   const byId={};
   data.value.forEach(wi=>{byId[wi.id]={state:wi.fields['System.State'],title:wi.fields['System.Title'],assignedTo:(wi.fields['System.AssignedTo']||{}).displayName||''}});
+  // Update sub-level ADO statuses
+  S.cats.flatMap(c=>c.subs).filter(s=>s.adoId).forEach(s=>{
+    const wi=byId[+s.adoId];
+    if(wi){s.adoState=wi.state;s.adoTitle=wi.title;}
+  });
+  // Update user story statuses on procs
   procs.forEach(p=>{
     const wi=byId[+p.adoId];
     if(wi){p.adoState=wi.state;p.adoTitle=wi.title;p.adoAssignedTo=wi.assignedTo;}
+  });
+  // Update task statuses on subs + auto-check checkboxes
+  Object.entries(taskIdMap).forEach(([id,{sub,field}])=>{
+    const wi=byId[+id];
+    if(wi){ sub[field]=wi.state; applyADOTaskCheckboxes(sub); }
   });
   save();renderHier();
   setPatStatus(`${data.value.length} statussen bijgewerkt ✓`,'ok');
@@ -2069,7 +2180,7 @@ function toSPRows(){
         Voortgang: p.prog||0,
         Done: p.done||0,
         Tech: s.tech||0,
-        Ttt: s.ttt||0,
+        V2doc: s.v2doc||0,
         Docs: s.docs||0,
         Blue: s.blue||0,
         Test: s.test||0,
@@ -2105,30 +2216,15 @@ async function spFetch(path, method='GET', body=null){
 
 async function spLoad(){
   setSPBadge('Laden…','saving');
-  const data=await spFetch(`web/lists/getbytitle('${SP_LIST}')/items?$select=Title,Categorie,Subcategorie,ProcNaam,Eigenaar,Voortgang,Done,Tech,Ttt,Docs,Blue,Test,Auth,V1doc,Winstr,AdoId,AdoState,Notities,ID&$top=500`);
-  if(!data||!data.value){setSPBadge('Laden mislukt — werkend met lokale data','error');return;}
-
-  // Build lookup maps
-  const procMap={}, subMap={};
-  data.value.forEach(r=>{
-    if(r.Title&&r.Title.startsWith('sub_')) subMap[r.Title]={spId:r.ID,...r};
-    else if(r.Title) procMap[r.Title]={spId:r.ID,...r};
-  });
-
+  const data=await spFetch(`web/lists/getbytitle('${SP_LIST}')/items?$select=Title,Categorie,Subcategorie,ProcNaam,Eigenaar,Voortgang,Done,Tech,Docs,Blue,Test,Auth,V1doc,V2doc,Winstr,AdoId,AdoState,Notities,ID&$top=500`);
+  if(!data||!data.value){setSPBadge('Laden mislukt','error');return;}
+  const map={};
+  data.value.forEach(r=>{map[r.Title]={spId:r.ID,...r};});
   let updated=0;
   S.cats.forEach(c=>c.subs.forEach(s=>{
-    // Load sub-level check fields
-    const subRow=subMap[`sub_${c.id}_${s.id}`]||
-      Object.values(subMap).find(r=>r.Categorie===c.name&&r.Subcategorie===s.name);
-    if(subRow){
-      s.tech=subRow.Tech||0; s.ttt=subRow.Ttt||0; s.docs=subRow.Docs||0;
-      s.blue=subRow.Blue||0; s.test=subRow.Test||0; s.auth=subRow.Auth||0;
-      s.v1doc=subRow.V1doc||0; s.winstr=subRow.Winstr||0;
-      s.notes=subRow.Notities||''; s.spId=subRow.spId;
-    }
-    // Load process-level fields
+    const sKey=`sub_${c.id}_${s.id}`;
     s.procs.forEach(p=>{
-      const row=procMap[p.id];
+      const row=map[p.id];
       if(row){
         p.ownerName=row.Eigenaar||'';
         p.prog=row.Voortgang||0;
@@ -2139,12 +2235,15 @@ async function spLoad(){
         updated++;
       }
     });
+    const subRow=Object.values(map).find(r=>r.Categorie===c.name&&r.Subcategorie===s.name&&r.Title&&r.Title.startsWith('sub_'));
+    if(subRow){
+      s.tech=subRow.Tech||0;s.docs=subRow.Docs||0;
+      s.blue=subRow.Blue||0;s.test=subRow.Test||0;s.auth=subRow.Auth||0;
+      s.v1doc=subRow.V1doc||0;s.v2doc=subRow.V2doc||0;s.winstr=subRow.Winstr||0;s.notes=subRow.Notities||'';
+    }
   }));
-
-  // Recalculate progress after loading
-  S.cats.forEach(c=>c.subs.forEach(s=>s.procs.forEach(p=>{p.prog=calcProg(p);})));
   renderAll();
-  setSPBadge(`Gesynchroniseerd (${updated} processen)`,'synced');
+  setSPBadge(`Gesynchroniseerd (${updated})`, 'synced');
 }
 
 async function spSave(){
@@ -2160,9 +2259,9 @@ async function spSave(){
       Eigenaar:'',
       Voortgang:0,
       Done:0,
-      Tech:s.tech||0,Ttt:s.ttt||0,Docs:s.docs||0,
+      Tech:s.tech||0,Docs:s.docs||0,
       Blue:s.blue||0,Test:s.test||0,Auth:s.auth||0,
-      V1doc:s.v1doc||0,Winstr:s.winstr||0,
+      V1doc:s.v1doc||0,V2doc:s.v2doc||0,Winstr:s.winstr||0,
       AdoId:'',AdoState:'',Notities:s.notes||''
     });
   }));
@@ -2198,6 +2297,9 @@ const GANTT_SPRINTS=[
   {id:'s35',lbl:'S3.5',date:'30 jun'},
   {id:'s36',lbl:'S3.6',date:'21 jul'},
   {id:'s41',lbl:'S4.1',date:'11 aug'},
+  {id:'s42',lbl:'S4.2',date:'01 sep'},
+  {id:'s43',lbl:'S4.3',date:'22 sep'},
+  {id:'s44',lbl:'S4.4',date:'13 okt'},
 ];
 
 let ganttPlanState={active:false,subId:null,startIdx:null};
@@ -2218,7 +2320,7 @@ function populateGanttCatFilter(){
   const sel=document.getElementById('gantt-cat-filter');
   if(!sel)return;
   const cur=sel.value;
-  sel.innerHTML='<option value="">Alle categorieën</option>';
+  sel.innerHTML='<option value="">Alle domeinen</option>';
   S.cats.forEach(c=>{
     const o=document.createElement('option');
     o.value=c.id;o.textContent=c.name;
@@ -2374,28 +2476,244 @@ function pbSwitchTab(tab){
   if(tab==='gantt'){renderGantt();}
 }
 
-/* ── Init: load PAT, then load data from SharePoint ── */
+/* ── Init: load PAT, then load data ── */
 function initPB(){
   if(pbInited)return;pbInited=true;
   loadPAT();
-  // Always start with empty structure rendered, then load from SP
-  allProcs().forEach(p=>{p.prog=0;});
+  const loaded=load();
+  if(!loaded){allProcs().forEach(p=>{p.prog=calcProg(p);});}
   renderAll();
-  // Auto-load from SharePoint if PAT available, else fall back to localStorage
-  if(adoPAT){
-    spLoad();
-  } else {
-    const loaded=load();
-    if(loaded){
-      allProcs().forEach(p=>{p.prog=calcProg(p);});
-      renderAll();
-    }
-    setSPBadge('Geen PAT — lokale data','local');
-  }
 }
 
 
 
+
+/* ══════════════════════════════════════════════
+   CSV IMPORT — ADO KOPPELINGEN
+══════════════════════════════════════════════ */
+let csvPendingMatches = [];
+let csvPendingTaskMatches = [];
+
+function triggerCSVImport(){
+  document.getElementById('csv-file-input').value='';
+  document.getElementById('csv-file-input').click();
+}
+function closeCSVModal(){
+  document.getElementById('csv-modal-overlay').style.display='none';
+  document.getElementById('csv-modal').style.display='none';
+}
+function handleCSVImport(event){
+  const file=event.target.files[0];if(!file)return;
+  const reader=new FileReader();
+  reader.onload=e=>parseAndMatchCSV(e.target.result);
+  reader.readAsText(file,'UTF-8');
+}
+function parseCSVLine(line){
+  const result=[];let cur='',inQ=false;
+  for(let i=0;i<line.length;i++){
+    const c=line[i];
+    if(c==='"'){inQ=!inQ;}
+    else if((c===','||c===';')&&!inQ){result.push(cur.trim());cur='';}
+    else{cur+=c;}
+  }
+  result.push(cur.trim());return result;
+}
+function parseAndMatchCSV(text){
+  const lines=text.split(/\r?\n/).filter(l=>l.trim());
+  if(lines.length<2){alert('CSV lijkt leeg of ongeldig.');return;}
+  const headers=parseCSVLine(lines[0]).map(h=>h.replace(/^"|"$/g,'').trim());
+  const idIdx=   headers.findIndex(h=>/^id$/i.test(h));
+  const typeIdx= headers.findIndex(h=>/work.?item/i.test(h));
+  const t1Idx=   headers.findIndex(h=>/title.?1/i.test(h));
+  const t2Idx=   headers.findIndex(h=>/title.?2/i.test(h));
+  const t3Idx=   headers.findIndex(h=>/title.?3/i.test(h));
+  const t4Idx=   headers.findIndex(h=>/title.?4/i.test(h));
+  const stateIdx=headers.findIndex(h=>/state/i.test(h));
+  if(idIdx===-1){alert('Geen ID-kolom gevonden in CSV.');return;}
+  const rows=[];
+  for(let i=1;i<lines.length;i++){
+    const cols=parseCSVLine(lines[i]);
+    const id=cols[idIdx]?.replace(/^"|"$/g,'').trim();
+    if(!id||isNaN(+id))continue;
+    const type= cols[typeIdx]?.replace(/^"|"$/g,'').trim()||'';
+    const t1=   cols[t1Idx]?.replace(/^"|"$/g,'').trim()||'';
+    const t2=   cols[t2Idx]?.replace(/^"|"$/g,'').trim()||'';
+    const t3=   cols[t3Idx]?.replace(/^"|"$/g,'').trim()||'';
+    const t4=   cols[t4Idx]?.replace(/^"|"$/g,'').trim()||'';
+    const state=cols[stateIdx]?.replace(/^"|"$/g,'').trim()||'';
+    const title=t4||t3||t2||t1;
+    if(!title)continue;
+    rows.push({id,type,title,t1,t2,t3,t4,state});
+  }
+  if(!rows.length){alert('Geen geldige rijen gevonden in CSV.');return;}
+  const procs=allProcs();
+  const normalize=s=>s.toLowerCase().replace(/[^a-z0-9]/g,'');
+  const TASK_MAP={
+    'procesbeschrijving':'adoTaskV2',
+    'autorisatierollen': 'adoTaskAuth',
+    'werkinstructie':    'adoTaskWinstr',
+    'uattestcases':      'adoTaskTest',
+    'testcases':         'adoTaskTest',
+  };
+  const matches=[],unmatched=[],taskMatches=[],taskUnmatched=[];
+  rows.forEach(row=>{
+    const isTask=row.type==='Task'&&row.t4;
+    if(isTask){
+      const parentNorm=normalize(row.t3||'');
+      const taskKey=normalize(row.t4||'');
+      const field=Object.entries(TASK_MAP).find(([k])=>taskKey.includes(k))?.[1];
+      if(!field){taskUnmatched.push(row);return;}
+      let parentProc=procs.find(p=>normalize(p.name)===parentNorm);
+      if(!parentProc)parentProc=procs.find(p=>{const pn=normalize(p.name);return parentNorm.includes(pn)||pn.includes(parentNorm);});
+      if(parentProc){
+        let parentSub=null;
+        S.cats.forEach(c=>c.subs.forEach(s=>{if(s.procs.find(p=>p.id===parentProc.id))parentSub=s;}));
+        if(parentSub)taskMatches.push({sub:parentSub,proc:parentProc,row,field,keep:true});
+        else taskUnmatched.push(row);
+      }else{taskUnmatched.push(row);}
+      return;
+    }
+    const rowNorm=normalize(row.title);
+    let proc=procs.find(p=>normalize(p.name)===rowNorm);
+    if(!proc)proc=procs.find(p=>{const pn=normalize(p.name);return rowNorm.includes(pn)||pn.includes(rowNorm);});
+    if(proc)matches.push({proc,row,keep:true});
+    else unmatched.push(row);
+  });
+  csvPendingMatches=matches;
+  csvPendingTaskMatches=taskMatches;
+  renderCSVModal(matches,unmatched,taskMatches,taskUnmatched);
+}
+function renderCSVModal(matches,unmatched,taskMatches=[],taskUnmatched=[]){
+  const already=matches.filter(m=>m.proc.adoId&&m.proc.adoId!==m.row.id);
+  const matched=document.getElementById('csv-match-list');
+  const summary=document.getElementById('csv-match-summary');
+  summary.innerHTML=`<strong style="color:var(--g)">${matches.length} user story matches</strong> · <span style="color:var(--g)">${taskMatches.length} taak-vinkje koppelingen</span> · <span style="color:var(--muted)">${unmatched.length+taskUnmatched.length} niet gevonden</span>${already.length?` · <span style="color:var(--o)">${already.length} overschrijven</span>`:''}`;
+  let html='';
+  if(matches.length){
+    html+=`<div style="padding:10px 20px 4px;font-size:11px;font-weight:900;text-transform:uppercase;letter-spacing:.06em;color:var(--muted)">User story matches</div>`;
+    matches.forEach((m,i)=>{
+      const overwrite=m.proc.adoId&&m.proc.adoId!==m.row.id;
+      html+=`<div style="display:flex;align-items:center;gap:12px;padding:10px 20px;border-bottom:1px solid var(--line);${m.keep?'':'opacity:.45'}">
+        <input type="checkbox" id="csv-chk-${i}" ${m.keep?'checked':''} onchange="csvPendingMatches[${i}].keep=this.checked" style="width:16px;height:16px;cursor:pointer;accent-color:var(--g)"/>
+        <div style="flex:1;min-width:0">
+          <div style="font-weight:700;font-size:13px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">${esc(m.proc.name)}</div>
+          <div style="font-size:11px;color:var(--muted);margin-top:2px">${esc(m.row.type)}${m.row.t2?' · '+esc(m.row.t2):''}${m.row.t3?' › '+esc(m.row.t3):''}</div>
+        </div>
+        <div style="text-align:right;flex-shrink:0">
+          <div style="font-size:13px;font-weight:900;color:var(--g)">#${m.row.id}</div>
+          ${overwrite?`<div style="font-size:10px;color:var(--o)">was #${m.proc.adoId}</div>`:''}
+          ${m.row.state?`<div style="font-size:10px;color:var(--muted)">${esc(m.row.state)}</div>`:''}
+        </div>
+      </div>`;
+    });
+  }
+  if(taskMatches.length){
+    const FIELD_LABELS={adoTaskV2:'V2 procesdoc',adoTaskAuth:'Autorisatierollen',adoTaskWinstr:'Werkinstructie',adoTaskTest:'UAT-Testcases'};
+    html+=`<div style="padding:14px 20px 4px;font-size:11px;font-weight:900;text-transform:uppercase;letter-spacing:.06em;color:var(--g)">Taak → vinkje koppelingen</div>`;
+    taskMatches.forEach((m,i)=>{
+      const lbl=FIELD_LABELS[m.field]||m.field;
+      html+=`<div style="display:flex;align-items:center;gap:12px;padding:9px 20px;border-bottom:1px solid var(--line)">
+        <input type="checkbox" id="csv-task-chk-${i}" ${m.keep?'checked':''} onchange="csvPendingTaskMatches[${i}].keep=this.checked" style="width:16px;height:16px;cursor:pointer;accent-color:var(--g)"/>
+        <div style="flex:1;min-width:0">
+          <div style="font-size:12px"><strong>${esc(m.proc.name)}</strong> → <span style="background:var(--gs);color:var(--g);padding:2px 7px;border-radius:4px;font-size:11px;font-weight:700">${lbl}</span></div>
+          <div style="font-size:11px;color:var(--muted);margin-top:2px">${esc(m.sub.name)} · ${esc(m.row.t4)}</div>
+        </div>
+        <div style="font-size:13px;font-weight:900;color:var(--g)">#${m.row.id}</div>
+      </div>`;
+    });
+  }
+  if(unmatched.length||taskUnmatched.length){
+    html+=`<div style="padding:14px 20px 4px;font-size:11px;font-weight:900;text-transform:uppercase;letter-spacing:.06em;color:var(--muted)">Niet gevonden</div>`;
+    [...unmatched,...taskUnmatched].forEach(row=>{
+      html+=`<div style="display:flex;align-items:center;gap:12px;padding:8px 20px;border-bottom:1px solid var(--line);opacity:.5">
+        <div style="width:16px;height:16px;border-radius:4px;background:var(--line);flex-shrink:0"></div>
+        <div style="flex:1;font-size:12px;color:var(--muted)">${esc(row.title)}</div>
+        <div style="font-size:12px;color:var(--muted)">#${row.id} · ${esc(row.type)}</div>
+      </div>`;
+    });
+  }
+  matched.innerHTML=html;
+  document.getElementById('csv-modal-overlay').style.display='block';
+  const modal=document.getElementById('csv-modal');
+  modal.style.display='flex';
+}
+function applyCSVImport(){
+  const toApply=csvPendingMatches.filter(m=>m.keep);
+  const taskToApply=csvPendingTaskMatches.filter(m=>m.keep);
+  if(!toApply.length&&!taskToApply.length){closeCSVModal();return;}
+  toApply.forEach(m=>{m.proc.adoId=m.row.id;m.proc.adoState=m.row.state||'';m.proc.adoTitle=m.row.title||'';});
+  taskToApply.forEach(m=>{m.sub[m.field]=m.row.id;});
+  save();renderHier();closeCSVModal();
+  const total=toApply.length+taskToApply.length;
+  setPatStatus(`${total} ADO-koppelingen gekoppeld ✓`,'ok');
+  if(adoPAT)loadADOStatuses();
+}
+
+/* ── ADO linking for DEELPROCESSEN (sub level) ── */
+function toggleADODrawerSub(sid){
+  const row=document.getElementById('ado-sub-dr-'+sid);
+  if(!row)return;
+  const open=row.style.display!=='none';
+  // Close all other sub drawers first
+  document.querySelectorAll('[id^="ado-sub-dr-"]').forEach(r=>r.style.display='none');
+  row.style.display=open?'none':'table-row';
+}
+function unlinkADOSub(sid){
+  S.cats.forEach(c=>c.subs.forEach(s=>{
+    if(s.id===sid){s.adoId='';s.adoState='';s.adoTitle='';}
+  }));
+  save();renderHier();
+}
+function linkADODirectSub(sid){
+  const inp=document.getElementById('ado-sub-id-'+sid);
+  if(!inp)return;
+  const id=inp.value.trim();
+  if(!id||isNaN(+id)){alert('Voer een geldig werkitem-ID in.');return;}
+  S.cats.forEach(c=>c.subs.forEach(s=>{
+    if(s.id===sid){s.adoId=id;s.adoState='';s.adoTitle='';}
+  }));
+  save();renderHier();
+  setPatStatus(`Deelproces gekoppeld aan ADO #${id}`,'ok');
+  if(adoPAT) loadADOStatuses();
+}
+
+function toggleADOPanel(){
+  const body=document.getElementById('ado-panel-body');
+  const chev=document.getElementById('ado-trigger-chev');
+  if(!body)return;
+  const open=body.style.display==='block';
+  body.style.display=open?'none':'block';
+  if(chev)chev.style.transform=open?'':'rotate(180deg)';
+}
+
 </script>
+
+<!-- BOTTOM ADO BAR -->
+<div id="ado-bottom-bar" style="position:fixed;bottom:0;left:0;right:0;z-index:800;pointer-events:none">
+  <!-- Collapsed trigger -->
+  <div id="ado-trigger" onclick="toggleADOPanel()" style="pointer-events:all;position:absolute;bottom:0;right:24px;background:#1C2B39;color:#86efac;padding:6px 16px;border-radius:10px 10px 0 0;font-size:12px;font-weight:800;cursor:pointer;display:flex;align-items:center;gap:8px;box-shadow:0 -2px 12px rgba(0,0,0,.2);user-select:none">
+    <span>🔑 Azure DevOps</span>
+    <span id="pat-status" style="font-size:11px;color:#fbbf24"></span>
+    <span id="sp-badge" class="sp-badge local" style="font-size:10px">● Lokaal</span>
+    <span id="ado-trigger-chev" style="font-size:10px;transition:transform .2s">▲</span>
+  </div>
+  <!-- Expanded panel -->
+  <div id="ado-panel-body" style="pointer-events:all;display:none;background:#1C2B39;border-top:2px solid #2d4a5a;padding:14px 20px;display:none">
+    <div style="max-width:1100px;margin:0 auto;display:flex;gap:10px;align-items:center;flex-wrap:wrap">
+      <span style="color:#86efac;font-size:12px;font-weight:800;white-space:nowrap">🔑 Azure DevOps</span>
+      <input class="pat-input" id="pat-input" type="password" placeholder="Plak je Personal Access Token…" style="background:#0f1e2a;border-color:#2d4a5a;color:#fff;min-width:220px"/>
+      <button class="pat-btn" onclick="savePAT()">Opslaan</button>
+      <button class="pat-btn secondary" onclick="loadADOStatuses()">↻ Statussen ophalen</button>
+      <input type="file" id="csv-file-input" accept=".csv" style="display:none" onchange="handleCSVImport(event)"/>
+      <span style="flex:1"></span>
+      <button class="pat-btn secondary" onclick="triggerCSVImport()" style="font-size:11px">📥 CSV</button>
+      <button class="pat-btn secondary" onclick="toggleADOInstructions()" style="font-size:11px">❓ Hoe koppelen?</button>
+      <button class="pat-btn secondary" onclick="spSave()" style="font-size:11px">☁ Opslaan</button>
+      <button class="pat-btn secondary" onclick="spLoad()" style="font-size:11px">☁ Laden</button>
+    </div>
+  </div>
+</div>
+<!-- Bottom bar spacer so content isn't hidden -->
+<div style="height:36px"></div>
 </body>
 </html>
